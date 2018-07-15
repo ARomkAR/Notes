@@ -13,6 +13,7 @@ final class NoteViewModel {
     enum State {
         case new
         case edited
+        case markedToDelete
         case deleted
         case saved
     }
@@ -40,7 +41,7 @@ extension NoteViewModel {
 
         let completionhandler: (Result<Note>) -> Void = { result in
             if case .success = result {
-                self.state.value = .saved
+                self.state.value = self.state.value == .markedToDelete ? .deleted : .saved
             }
             completion?(result)
         }
@@ -54,11 +55,11 @@ extension NoteViewModel {
             NotesAPIClient.updateNote(note: self.note,
                                       using: NotesNetworkManager.self,
                                       then: completionhandler)
-        case .deleted:
+        case .markedToDelete:
             NotesAPIClient.deleteNote(note: self.note,
                                       using: NotesNetworkManager.self,
                                       then: completionhandler)
-        case .saved: return
+        case .saved, .deleted: return
         }
     }
 

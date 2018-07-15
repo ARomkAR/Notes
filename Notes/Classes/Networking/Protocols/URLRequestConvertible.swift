@@ -19,7 +19,10 @@ extension URLRequestConvertible where Self: Endpoint {
             throw NotesAPIError.invalidURL
         }
         var request = URLRequest(url: url.appendingPathComponent(self.path))
+
         request.httpMethod = self.method.rawValue
+        request.timeoutInterval = NetworkConstants.defaultTimeout
+
         self.headers?.forEach({
             request.addValue($0.value, forHTTPHeaderField: $0.field)
         })

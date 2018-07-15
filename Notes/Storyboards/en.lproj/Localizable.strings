@@ -16,4 +16,18 @@
 "NOTE_SAVE" = "Save";
 "NOTE_OK" = "OK";
 "NOTE_CLOSE" = "Close";
-"PLACEHOLDER_TEXT" = "What it is about";
+
+//Activity
+"FETCH_NOTES_ACTIVITY_MESSAGE" = "Hold on while we refresh your notes.";
+"SAVE_NOTE_ACTIVITY_MESSAGE" = "Hold on while we save your note.";
+"DELETE_NOTE_ACTIVITY_MESSAGE" = "Hold we are deleating your note.";
+
+//Error
+"DEFAULT_ERROR_TITLE" = "Oops!";
+
+"DEFAULT_ERROR_MESSAGE" = "Something went terribly wrong. Please try again later.";
+
+"REQUEST_ERROR_MESSAGE" = "There was some problem with your request. But don't worry try saving again.";
+
+"NETWORK_CONNECTIVITY_ERROR_TITLE" = "No network connection.";
+"NETWORK_ERROR_MESSAGE" = "Please check your network connectivity and try again later.";

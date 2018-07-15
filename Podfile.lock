@@ -1,0 +1,20 @@
+PODS:
+  - MBProgressHUD (1.1.0)
+  - ReachabilitySwift (4.1.0)
+
+DEPENDENCIES:
+  - MBProgressHUD
+  - ReachabilitySwift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MBProgressHUD
+    - ReachabilitySwift
+
+SPEC CHECKSUMS:
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+
+PODFILE CHECKSUM: f9aeb5061c851d3d9c29d1f5610fdb16871b1fac
+
+COCOAPODS: 1.5.3

@@ -95,9 +95,3 @@ enum HTTPHeader {
     }
 
 }
-
-enum NotesAPIError: Error {
-    case invalidURL
-    case invalidResponse
-    case noData
-}

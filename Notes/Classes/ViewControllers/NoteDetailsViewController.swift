@@ -8,13 +8,25 @@
 
 import UIKit
 
+enum NoteDetailsViewControllerEvent {
+    case addedNewNote(NoteViewModel)
+    case updatedNote(NoteViewModel)
+    case deletedNote(NoteViewModel)
+}
+
+protocol NoteDetailsViewControllerEventsDelegate: class {
+
+    func didPerformed(event: NoteDetailsViewControllerEvent)
+}
+
 final class NoteDetailsViewController: UIViewController, Reusable {
+
     private static let newNoteLocalizationKey = "NEW_NOTE"
     private static let editNoteLocalizationKey = "NOTE"
     private static let doneButtonTitleLocalizationKey = "NOTE_DONE"
     private static let closeButtonTitleLocalizationKey = "NOTE_CLOSE"
-    private static let saveButtonTitleLocalizationKey = "NOTE_SAVE"
 
+    weak var eventsDelegate: NoteDetailsViewControllerEventsDelegate?
 
     @IBOutlet private weak var noteTextView: UITextView! {
         didSet {
@@ -24,17 +36,17 @@ final class NoteDetailsViewController: UIViewController, Reusable {
 
     @IBOutlet weak var bottomToolBar: UIToolbar! {
         didSet {
-
+            self.configureToolBar()
         }
     }
 
     private let keyboardToolbar: UIToolbar = UIToolbar()
     private lazy var doneSaveBarbutton = UIBarButtonItem(title: type(of: self).doneButtonTitleLocalizationKey.localised,
-                                                    style: .done,
-                                                    target: self,
-                                                    action: #selector(self.saveEditButtonTapped))
+                                                         style: .done,
+                                                         target: self,
+                                                         action: #selector(self.saveEditButtonTapped))
     private var note = NoteViewModel(nil)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
@@ -69,33 +81,25 @@ extension NoteDetailsViewController: UITextViewDelegate {
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         self.note.title.value = textView.text
-        let shouldDisplaySave = (self.note.state.value == .edited || self.note.state.value == .new)
-        if shouldDisplaySave && !textView.text.isEmpty {
-            self.navigationItem.rightBarButtonItem?.localisedTitle = type(of: self).saveButtonTitleLocalizationKey
-        } else {
-            // remove button otherwise
-            self.navigationItem.rightBarButtonItem = nil
-        }
     }
 }
 
 private extension NoteDetailsViewController {
-    func configureNavigationBar() {
-        let selfType = type(of: self)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: selfType.closeButtonTitleLocalizationKey.localised,
-                                                                style: .done,
-                                                                target: self,
-                                                                action: #selector(self.closeEditButtonTapped))
-    }
-
     func configureView() {
         let selfType = type(of: self)
         self.localisedTitle = self.note.state.value == .new ? selfType.newNoteLocalizationKey
-                                                            : selfType.editNoteLocalizationKey
+            : selfType.editNoteLocalizationKey
 
         self.noteTextView.text = self.note.title.value
+    }
 
-        self.configureNavigationBar()
+    func configureToolBar() {
+        if self.note.state.value != .new {
+            let items = [UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteNote)),
+                         UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
+            self.bottomToolBar.setItems(items, animated: true)
+        }
+
     }
 
     @objc func saveEditButtonTapped() {
@@ -104,12 +108,10 @@ private extension NoteDetailsViewController {
             self.update()
         }
     }
-
-    @objc func closeEditButtonTapped() {
-        self.noteTextView.resignFirstResponder()
-        self.dismiss(animated: true, completion: nil)
+    @objc func deleteNote() {
+        self.note.state.value = .markedToDelete
+        self.update()
     }
-
 }
 
 // MARK: Keyboard management
@@ -141,10 +143,34 @@ private extension NoteDetailsViewController {
 }
 
 private extension NoteDetailsViewController {
+    private static let saveNoteActivityMessage = "SAVE_NOTE_ACTIVITY_MESSAGE"
+    private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
+
+    var activityMessage: String? {
+        let selfType = type(of: self)
+        switch self.note.state.value {
+        case .new, .edited:
+            return selfType.saveNoteActivityMessage.localised
+        case .deleted:
+            return selfType.deleteNoteActivityMessage.localised
+        default:
+            return nil
+        }
+    }
+    
     func update() {
+        self.showActivity(withTitle: nil, andMessage: self.activityMessage)
         self.note.update {[weak self] res in
-            if case .success = res {
+            switch res {
+            case .success:
                 self?.navigationItem.rightBarButtonItem = nil
+            case .failed(let error):
+                self?.showError(error as CustomLocalizableError)
+            }
+            self?.hideActivity()
+            // call events delegate 
+            if self?.note.state.value == .deleted {
+                self?.navigationController?.popViewController(animated: true)
             }
         }
     }

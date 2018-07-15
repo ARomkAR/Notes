@@ -8,16 +8,6 @@
 
 import Foundation
 
-private func performOnMain(_ workItem: () -> Void) {
-    if Thread.isMainThread {
-        workItem()
-    } else {
-        DispatchQueue.main.sync {
-            workItem()
-        }
-    }
-}
-
 final class NotesAPIClient {
     
     static func getNotes<Manager: NetworkManager>(using manager: Manager.Type, then completion: @escaping (Result<[Note]>) -> Void) {

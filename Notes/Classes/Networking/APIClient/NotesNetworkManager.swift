@@ -7,14 +7,35 @@
 //
 
 import Foundation
+import Reachability
+
+enum NotesNetworkManagerError: CustomLocalizableError {
+    static private let errorTitle = "NETWORK_CONNECTIVITY_ERROR_TITLE"
+    static private let errorMessage = "NETWORK_ERROR_MESSAGE"
+
+    case networkUnreachable
+
+    var localisedTitle: String {
+        return type(of: self).errorTitle.localised
+    }
+
+    var localisedMessage: String {
+        return type(of: self).errorMessage.localised
+    }
+}
 
 final class NotesNetworkManager: NetworkManager {
     
     private typealias URLSessionCompletionHandler = (Data?, URLResponse?, Error?) -> Void
     private static let urlSession = URLSession.shared
+    private static let rechability = Reachability()
     
     static func execute(request: URLRequestConvertible,
                         then completion: @escaping (Result<Data?>) -> Void) {
+        guard let connectivityType = self.rechability?.connection, connectivityType != .none else {
+            completion(.failed(NotesNetworkManagerError.networkUnreachable))
+            return
+        }
         do {
             let urlRequest = try request.buildRequest()
             let completionHandler: URLSessionCompletionHandler = { (data, urlResponse, error) in
