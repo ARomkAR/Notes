@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  Notes
+
+  Created by Omkar khedekar on 14/07/18.
+  Copyright © 2018 Omkar khedekar. All rights reserved.
+*/
+
+"HOME_NAVIGATION_TITLE" = "Notes";
+"NEW_NOTE" = "New Note";
+"NOTE" = "Note";
+"NOTE_EDIT" = "Edit";
+"NOTE_UPDATE" = "Update";
+"NOTE_CANCEL" = "Cancel";
+"NOTE_DONE" = "Done";
+"NOTE_SAVE" = "Save";
+"NOTE_OK" = "OK";
+"NOTE_CLOSE" = "Close";
+"PLACEHOLDER_TEXT" = "What it is about";
