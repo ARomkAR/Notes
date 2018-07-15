@@ -11,11 +11,12 @@
 "NOTE" = "Note";
 "NOTE_EDIT" = "Edit";
 "NOTE_UPDATE" = "Update";
-"NOTE_CANCEL" = "Cancel";
+"CANCEL" = "Cancel";
 "NOTE_DONE" = "Done";
 "NOTE_SAVE" = "Save";
-"NOTE_OK" = "OK";
-"NOTE_CLOSE" = "Close";
+"OK" = "OK";
+"CLOSE" = "Close";
+"DELETE" = "Delete";
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Hold on while we refresh your notes.";
@@ -24,10 +25,9 @@
 
 //Error
 "DEFAULT_ERROR_TITLE" = "Oops!";
-
 "DEFAULT_ERROR_MESSAGE" = "Something went terribly wrong. Please try again later.";
-
 "REQUEST_ERROR_MESSAGE" = "There was some problem with your request. But don't worry try saving again.";
-
-"NETWORK_CONNECTIVITY_ERROR_TITLE" = "No network connection.";
+"NETWORK_CONNECTIVITY_ERROR_TITLE" = "No network connection";
 "NETWORK_ERROR_MESSAGE" = "Please check your network connectivity and try again later.";
+"NOTE_VALIDATION_ERROR" = "Oops!";
+"NOTE_VALIDATION_ERROR_MESSAGE" = "This note seems to be empty, lets add somthing to it";

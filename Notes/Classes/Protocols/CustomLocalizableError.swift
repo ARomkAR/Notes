@@ -15,7 +15,7 @@ protocol CustomLocalizableError: LocalizedError {
     var localisedTitle: String { get }
     var localisedMessage: String { get }
 }
-
+/*
 extension NSError: CustomLocalizableError {
     var localisedTitle: String {
         return defaultTitle.localised
@@ -25,3 +25,4 @@ extension NSError: CustomLocalizableError {
         return self.localizedDescription
     }
 }
+*/

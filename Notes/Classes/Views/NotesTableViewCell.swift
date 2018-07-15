@@ -11,8 +11,8 @@ import UIKit
 class NotesTableViewCell: UITableViewCell, Reusable, NibLoadable {
 
     @IBOutlet private weak var titleLabel: UILabel!
-    func update(with viewModel: NoteViewModel) {
 
+    func update(with viewModel: NoteViewModel) {
         self.titleLabel.text = viewModel.title.value
     }
 }

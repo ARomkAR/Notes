@@ -10,11 +10,31 @@ import UIKit
 
 extension UIViewController {
 
-    func showError(_ error: CustomLocalizableError) {
+    static private let defaultErrorTitle = "DEFAULT_ERROR_TITLE"
+    static private let okButtonTitle = "OK"
 
-        let alertViewController = UIAlertController(title: error.localisedTitle,
-                                                    message: error.localisedMessage,
+    func showError(_ error: Error) {
+
+        let title: String
+        let message: String
+
+        let selfType = type(of: self)
+        
+        if let error = error as? CustomLocalizableError {
+            title = error.localisedTitle
+            message = error.localisedMessage
+        } else {
+            title = selfType.defaultErrorTitle.localised
+            message = error.localizedDescription
+        }
+
+        let alertViewController = UIAlertController(title: title,
+                                                    message: message,
                                                     preferredStyle: .alert)
+
+        alertViewController.addAction(UIAlertAction(title: selfType.okButtonTitle.localised,
+                                                    style: .cancel,
+                                                    handler: nil))
         self.present(alertViewController, animated: true, completion: nil)
     }
 }

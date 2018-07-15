@@ -9,9 +9,14 @@
 import UIKit
 
 class NotesViewController: UIViewController {
+
     private static let fetchNotesActivityMessage = "FETCH_NOTES_ACTIVITY_MESSAGE"
+    private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
+    private static let deleteActionTitle = "Delete"
+
     private static let estimatedRowHeight: CGFloat = 50
-    private var notes: [NoteViewModel] = []
+
+    private var notes: [Note] = []
     private var needsRefresh = true
 
     @IBOutlet private weak var notesTableView: UITableView! {
@@ -31,7 +36,11 @@ class NotesViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.fetchNotes()
+        if self.needsRefresh {
+            self.fetchNotes()
+        } else {
+            self.notesTableView.reloadData()
+        }
     }
 
     @IBAction private func addNewNote(_ sender: Any) {
@@ -40,22 +49,35 @@ class NotesViewController: UIViewController {
 
     private func showDetails(for viewModel: NoteViewModel?) {
         guard let detailsViewController = NoteDetailsViewController.instance(with: viewModel) else { return }
+        detailsViewController.eventsDelegate = self
         self.navigationController?.pushViewController(detailsViewController, animated: true)
     }
 
     private func fetchNotes() {
-        guard self.needsRefresh else { return }
 
         self.showActivity(withTitle: nil, andMessage: type(of: self).fetchNotesActivityMessage.localised)
-
-        NotesAPIClient.getNotes(using: NotesNetworkManager.self, then: { [weak self] res in
+        NotesAPIClient.getNotes(using: NotesNetworkManager.self,
+                                then: { [weak self] result in
             self?.needsRefresh = false
-            switch res {
+            switch result {
             case .success(let notes):
-                self?.notes = notes.map({ NoteViewModel.init($0) })
+                self?.notes = notes
                 self?.notesTableView.reloadData()
             case .failed(let error):
-                self?.showError(error as CustomLocalizableError)
+                self?.showError(error)
+            }
+            self?.hideActivity()
+        })
+    }
+
+    private func delete(note: Note) {
+        self.showActivity(withTitle: nil, andMessage: type(of: self).deleteNoteActivityMessage.localised)
+        NotesAPIClient.deleteNote(note: note,
+                                  using: NotesNetworkManager.self,
+                                  then: { [weak self] result in
+            self?.needsRefresh = false
+            if case .failed(let error) = result {
+                self?.showError(error)
             }
             self?.hideActivity()
         })
@@ -70,37 +92,48 @@ extension NotesViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NotesTableViewCell.defaultReuseIdentifier,
-                                            for: indexPath)
+                                                 for: indexPath)
 
         if let notesCell = cell as? NotesTableViewCell {
-            notesCell.update(with: self.notes[indexPath.row])
+            let viewModel = NoteViewModel(self.notes[indexPath.row])
+            notesCell.update(with: viewModel)
         }
         return cell
     }
 }
 
 extension NotesViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         tableView.deselectRow(at: indexPath, animated: true)
-        self.showDetails(for: self.notes[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+        let viewModel = NoteViewModel(self.notes[indexPath.row])
+        self.showDetails(for: viewModel)
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive,
+                                          title: type(of: self).deleteActionTitle) { (action, indexPath) in
+            let noteToDelete = self.notes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.delete(note: noteToDelete)
+        }
+        return [delete]
     }
 }
 
 extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
     func didPerformed(event: NoteDetailsViewControllerEvent) {
         switch event {
-        case .addedNewNote(let noteModel):
-            self.notes.append(noteModel)
-        case .deletedNote(let noteModel):
-            if let index = self.notes.index(where: { $0.note.id == noteModel.note.id }) {
+        case .addedNewNote(let note):
+            self.notes.append(note)
+        case .updatedNote(let note):
+            if let index = self.notes.index(where: { $0.id == note.id }) {
+                self.notes[index] = note
+            }
+        case .deletedNote(let removedNote):
+            if let index = self.notes.index(of: removedNote) {
                 self.notes.remove(at: index)
             }
-        case .updatedNote( let noteModel):
-            if let index = self.notes.index(where: { $0.note.id == noteModel.note.id }) {
-                self.notes.insert(noteModel, at: index)
-            }
-            return
         }
-        self.notesTableView.reloadData()
     }
 }

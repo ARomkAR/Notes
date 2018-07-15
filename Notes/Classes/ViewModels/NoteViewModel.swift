@@ -8,59 +8,131 @@
 
 import UIKit
 
+enum NoteValidationError: CustomLocalizableError {
+
+    static private let validationErrorTitle = "NOTE_VALIDATION_ERROR"
+    static private let validationErrorMessage = "NOTE_VALIDATION_ERROR_MESSAGE"
+
+    case emptyNote
+
+    var localisedTitle: String {
+        switch self {
+        case .emptyNote:
+            return type(of: self).validationErrorTitle.localised
+
+        }
+    }
+
+    var localisedMessage: String {
+        switch self {
+        case .emptyNote:
+            return type(of: self).validationErrorMessage.localised
+
+        }
+    }
+}
+
+private enum NoteValidationState {
+    case success(String)
+    case failed(NoteValidationError)
+}
+
 final class NoteViewModel {
     
     enum State {
-        case new
-        case edited
-        case markedToDelete
+        case created
+        case updated
         case deleted
-        case saved
+        case error
+        case noChange
     }
 
-    let title: Observable<String>
-    let state: Observable<State>
-    private(set) var note: Note
+    let title: Observable<String?>
+    private(set) var state: State
+    private(set) var note: Note!
 
     init(_ note: Note?) {
-        let state: State = note == nil ? .new : .saved
-        self.note = note ?? Note(id: Int.min, title: "")
-        self.title = Observable(self.note.title)
-        self.state = Observable(state)
-        self.title.bind({ [unowned self] change in
-            if self.state.value != .new, change.oldValue != change.newValue {
-                self.state.value = .edited
-            }
-        })
+        self.note = note
+        self.title = Observable(note?.title)
+        self.state = note == nil ? .created : .noChange
     }
 }
 
 extension NoteViewModel {
 
-    func update(then completion: ((Result<Note>) -> Void)?) {
+    typealias CompletionHandler = (Result<Note>) -> Void
 
-        let completionhandler: (Result<Note>) -> Void = { result in
-            if case .success = result {
-                self.state.value = self.state.value == .markedToDelete ? .deleted : .saved
+    func create(then completion: CompletionHandler?) {
+        let validationState = self.validateNoteText(self.title.value)
+        switch validationState {
+        case .success(let title):
+
+            let completionhandler: (Result<Note>) -> Void = { result in
+                switch result {
+                case .success(let newNote):
+                    self.note = newNote
+                    self.title.value = newNote.title
+                    self.state = .created
+                    completion?(.success(newNote))
+                case .failed(let error):
+                    completion?(.failed(error))
+                }
             }
-            completion?(result)
-        }
-
-        switch self.state.value {
-        case .new:
-            NotesAPIClient.careateNote(withTitle: self.title.value,
+            NotesAPIClient.careateNote(withTitle: title,
                                        using: NotesNetworkManager.self,
                                        then: completionhandler)
-        case .edited:
-            NotesAPIClient.updateNote(note: self.note,
-                                      using: NotesNetworkManager.self,
-                                      then: completionhandler)
-        case .markedToDelete:
-            NotesAPIClient.deleteNote(note: self.note,
-                                      using: NotesNetworkManager.self,
-                                      then: completionhandler)
-        case .saved, .deleted: return
+        case .failed(let error):
+            completion?(.failed(error))
         }
     }
 
+    func update(then completion: CompletionHandler?) {
+        let validationState = self.validateNoteText(self.title.value)
+        switch validationState {
+        case .success(let title):
+            guard let note = self.note else { return }
+            let completionhandler: (Result<Note>) -> Void = { result in
+                switch result {
+                case .success(let note):
+                    self.state = .updated
+                    completion?(.success(note))
+                case .failed(let error):
+                    completion?(.failed(error))
+
+                }
+            }
+            NotesAPIClient.updateNote(note: Note(id: note.id, title: title),
+                                      using: NotesNetworkManager.self,
+                                      then: completionhandler)
+        case .failed(let error):
+            completion?(.failed(error))
+        }
+    }
+
+    func delete(then completion: CompletionHandler?) {
+        guard let note = self.note else { return }
+        let completionhandler: (Result<Note>) -> Void = { result in
+            switch result {
+            case .success(let note):
+                self.state = .deleted
+                completion?(.success(note))
+            case .failed(let error):
+                completion?(.failed(error))
+
+            }
+        }
+        NotesAPIClient.deleteNote(note: note,
+                                  using: NotesNetworkManager.self,
+                                  then: completionhandler)
+    }
+
+    private func validateNoteText(_ text: String?) -> NoteValidationState {
+        guard
+            let text = text,
+            !text.isEmpty,
+            !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return .failed(NoteValidationError.emptyNote) }
+
+        return .success(text)
+    }
 }
