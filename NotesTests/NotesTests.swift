@@ -22,11 +22,4 @@ class NoteTests: XCTestCase {
         XCTAssertEqual(note?.title, "Jogging in park")
         XCTAssertEqual(note?.id, 1)
     }
-
-    func testNoteEncoading() {
-        let note = Note(id: 1, title: "Jogging in park")
-        let data = try? JSONEncoder().encode(note)
-        XCTAssertNotNil(data)
-    }
-
 }
