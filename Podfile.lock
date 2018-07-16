@@ -1,20 +1,24 @@
 PODS:
+  - Localize-Swift (2.0.0)
   - MBProgressHUD (1.1.0)
   - ReachabilitySwift (4.1.0)
 
 DEPENDENCIES:
+  - Localize-Swift
   - MBProgressHUD
   - ReachabilitySwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Localize-Swift
     - MBProgressHUD
     - ReachabilitySwift
 
 SPEC CHECKSUMS:
+  Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
 
-PODFILE CHECKSUM: f9aeb5061c851d3d9c29d1f5610fdb16871b1fac
+PODFILE CHECKSUM: 4e61d9de4b1e8b6427a3b3f3cc7815d59152e2e2
 
 COCOAPODS: 1.5.3

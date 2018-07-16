@@ -8,6 +8,7 @@ target 'Notes' do
   # Pods for Notes
   pod 'MBProgressHUD'
   pod 'ReachabilitySwift'
+  pod 'Localize-Swift'
 
   target 'NotesTests' do
     inherit! :search_paths
