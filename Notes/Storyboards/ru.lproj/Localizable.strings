@@ -19,6 +19,7 @@
 "NEW" = "Nový";
 "DELETE" = "Удалить";
 "CHANGE_LANGUAGE_TITLE" = "Изменить язык";
+"PULL_DOWN_REFRESH_TITLE" = "Потяните, чтобы обновить";
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Удерживайте, пока мы обновляем ваши заметки";

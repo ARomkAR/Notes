@@ -10,18 +10,27 @@ import UIKit
 import Localize_Swift
 
 class NotesViewController: UIViewController {
-
     // MARK:- Constants
     private static let fetchNotesActivityMessage = "FETCH_NOTES_ACTIVITY_MESSAGE"
     private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
     private static let deleteActionTitle = "DELETE"
     private static let changeLanguageTitle = "CHANGE_LANGUAGE_TITLE"
     private static let changeLanguageCancelButtonTitle = "CANCEL"
+    private static let refreshControlTitle = "PULL_DOWN_REFRESH_TITLE"
     private static let estimatedRowHeight: CGFloat = 50
 
     // MARK:- Private Properties
     private var notes: [Note] = []
-    private var needsRefresh = true
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.attributedTitle = NSAttributedString(string: type(of: self).refreshControlTitle.localised)
+        control.addTarget(self,
+                          action: #selector(self.refresh),
+                          for: .valueChanged)
+        return control
+    }()
+    private var dataState = DataState.notAvailable
+
     private lazy var changeLanguageBarButton: UIBarButtonItem = {
         let activeLanguage = Localize.currentLanguage()
         let barButton = UIBarButtonItem(title: activeLanguage,
@@ -39,6 +48,7 @@ class NotesViewController: UIViewController {
             self.notesTableView.estimatedRowHeight = type(of: self).estimatedRowHeight
             self.notesTableView.rowHeight = UITableViewAutomaticDimension
             self.notesTableView.register(NotesTableViewCell.self)
+            self.notesTableView.refreshControl = self.refreshControl
             self.notesTableView.dataSource = self
             self.notesTableView.delegate = self
         }
@@ -52,12 +62,7 @@ class NotesViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.needsRefresh {
-            self.fetchNotes()
-        } else {
-            self.notesTableView.reloadData()
-        }
-
+        self.refreshData()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.upadateLocalisedText),
                                                name: NSNotification.Name(LCLLanguageChangeNotification),
@@ -85,14 +90,16 @@ class NotesViewController: UIViewController {
     private func fetchNotes() {
 
         self.showActivity(withTitle: nil, andMessage: type(of: self).fetchNotesActivityMessage.localised)
+        self.dataState = .fetching
         NotesAPIClient.getNotes(using: NotesNetworkManager.self,
                                 then: { [weak self] result in
-                                    self?.needsRefresh = false
                                     switch result {
                                     case .success(let notes):
+                                        self?.dataState = .fetched
                                         self?.notes = notes
                                         self?.notesTableView.reloadData()
                                     case .failed(let error):
+                                        self?.dataState = .notAvailable
                                         self?.showError(error)
                                     }
                                     self?.hideActivity()
@@ -104,12 +111,29 @@ class NotesViewController: UIViewController {
         NotesAPIClient.deleteNote(note: note,
                                   using: NotesNetworkManager.self,
                                   then: { [weak self] result in
-                                    self?.needsRefresh = false
+                                    self?.dataState = .reload
                                     if case .failed(let error) = result {
                                         self?.showError(error)
                                     }
                                     self?.hideActivity()
         })
+    }
+
+    private func refreshData() {
+        switch self.dataState {
+        case .fetched:
+            self.notesTableView.reloadData()
+        case.notAvailable, .reload:
+            self.fetchNotes()
+        case .fetching: break
+        }
+    }
+
+    @objc private func refresh() {
+        guard self.dataState != .fetching else { return }
+        self.dataState = .reload
+        self.refreshData()
+        self.refreshControl.endRefreshing()
     }
 
     @objc private func changeLanguageTapped(_ sender: UIBarButtonItem) {
@@ -137,6 +161,7 @@ class NotesViewController: UIViewController {
     }
 
     @objc private func upadateLocalisedText() {
+        self.refreshControl.attributedTitle = NSAttributedString(string: type(of: self).refreshControlTitle.localised)
         self.title = self.localisedTitle?.localised
         self.changeLanguageBarButton.title = Localize.currentLanguage()
         self.addNewNote.title = self.addNewNote.localisedTitle?.localised
@@ -196,5 +221,14 @@ extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
         case .deletedNote(let removedNote):
             self.notes.remove(element: removedNote)
         }
+    }
+}
+
+private extension NotesViewController {
+    enum DataState {
+        case fetched
+        case fetching
+        case notAvailable
+        case reload
     }
 }

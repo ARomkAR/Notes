@@ -19,6 +19,7 @@
 "NEW" = "New";
 "DELETE" = "Delete";
 "CHANGE_LANGUAGE_TITLE" = "Change Language";
+"PULL_DOWN_REFRESH_TITLE" = "Pull to refresh";
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Hold on while we refresh your notes.";
