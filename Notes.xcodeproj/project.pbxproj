@@ -63,6 +63,12 @@
 		71EEAC55DBCD04C34412FCE2 /* Pods_NotesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		930C9C49660A729A06354F48 /* Pods-NotesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotesTests/Pods-NotesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0106AC03D67D0CDCCC8A49E /* Pods-Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Notes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Notes/Pods-Notes.debug.xcconfig"; sourceTree = "<group>"; };
+		E522DE7320FBF8CB0035B6AB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E522DE7420FBF8CB0035B6AB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main.strings; sourceTree = "<group>"; };
+		E522DE7520FBF8CB0035B6AB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = ../Storyboards/cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E522DE7620FBFA470035B6AB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		E522DE7720FBFA470035B6AB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		E522DE7820FBFA470035B6AB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../Storyboards/ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E5678E8620FA3AFC000AB9A1 /* RequestParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameterEncoder.swift; sourceTree = "<group>"; };
 		E5678E8820FA3B6E000AB9A1 /* ParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoder.swift; sourceTree = "<group>"; };
 		E5678E8A20FA3E08000AB9A1 /* URLRequestConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestConvertible.swift; sourceTree = "<group>"; };
@@ -404,6 +410,8 @@
 			knownRegions = (
 				en,
 				Base,
+				cs,
+				ru,
 			);
 			mainGroup = E587CFEA20F90E3C009CDAA4;
 			productRefGroup = E587CFF420F90E3C009CDAA4 /* Products */;
@@ -572,6 +580,8 @@
 			children = (
 				E587CFFB20F90E3C009CDAA4 /* Base */,
 				E5FB9CA920FA1B3800E84F7E /* en */,
+				E522DE7420FBF8CB0035B6AB /* cs */,
+				E522DE7720FBFA470035B6AB /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -580,6 +590,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				E587D00020F90E3E009CDAA4 /* Base */,
+				E522DE7320FBF8CB0035B6AB /* cs */,
+				E522DE7620FBFA470035B6AB /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -588,6 +600,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				E5FB9CAB20FA1B5B00E84F7E /* en */,
+				E522DE7520FBF8CB0035B6AB /* cs */,
+				E522DE7820FBFA470035B6AB /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -599,6 +613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -659,6 +674,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

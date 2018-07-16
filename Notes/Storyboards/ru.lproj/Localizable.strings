@@ -1,0 +1,34 @@
+/* 
+ Localizable.strings
+ Notes
+
+ Created by Omkar khedekar on 14/07/18.
+ Copyright © 2018 Omkar khedekar. All rights reserved.
+ */
+
+"HOME_NAVIGATION_TITLE" = "Заметки";
+"NEW_NOTE" = "Новая заметка";
+"NOTE" = "Заметка";
+"NOTE_EDIT" = "Редактировать";
+"NOTE_UPDATE" = "Обновить";
+"CANCEL" = "Отмена";
+"NOTE_DONE" = "Готово";
+"NOTE_SAVE" = "Сохранить";
+"OK" = "OK";
+"CLOSE" = "Закрыть";
+"NEW" = "Nový";
+"DELETE" = "Удалить";
+
+//Activity
+"FETCH_NOTES_ACTIVITY_MESSAGE" = "Удерживайте, пока мы обновляем ваши заметки";
+"SAVE_NOTE_ACTIVITY_MESSAGE" = "Держитесь, пока мы сохраняем ваше примечание";
+"DELETE_NOTE_ACTIVITY_MESSAGE" = "Удерживайте, мы удаляем ваше примечание";
+
+//Error
+"DEFAULT_ERROR_TITLE" = "К сожалению!";
+"DEFAULT_ERROR_MESSAGE" = "Что-то пошло ужасно неправильно. Пожалуйста, повторите попытку позже";
+"REQUEST_ERROR_MESSAGE" = "С вашей просьбой возникла некоторая проблема. Но не беспокойтесь, попробуйте снова сэкономить";
+"NETWORK_CONNECTIVITY_ERROR_TITLE" = "Нет сетевого подключения";
+"NETWORK_ERROR_MESSAGE" = "Проверьте подключение к сети и повторите попытку позже";
+"NOTE_VALIDATION_ERROR" = "К сожалению!";
+"NOTE_VALIDATION_ERROR_MESSAGE" = "Эта заметка кажется пустой, позволяет добавить что-то";

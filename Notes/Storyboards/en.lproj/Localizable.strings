@@ -16,6 +16,7 @@
 "NOTE_SAVE" = "Save";
 "OK" = "OK";
 "CLOSE" = "Close";
+"NEW" = "New";
 "DELETE" = "Delete";
 
 //Activity
@@ -30,4 +31,4 @@
 "NETWORK_CONNECTIVITY_ERROR_TITLE" = "No network connection";
 "NETWORK_ERROR_MESSAGE" = "Please check your network connectivity and try again later.";
 "NOTE_VALIDATION_ERROR" = "Oops!";
-"NOTE_VALIDATION_ERROR_MESSAGE" = "This note seems to be empty, lets add somthing to it";
+"NOTE_VALIDATION_ERROR_MESSAGE" = "This note seems to be empty, lets add something to it";
