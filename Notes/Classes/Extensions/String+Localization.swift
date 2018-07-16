@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Localize_Swift
 
 extension String {
     var localised: String {
@@ -16,7 +17,7 @@ extension String {
         #else
         comment = self
         #endif
-        return NSLocalizedString(self, comment: comment)
+        return self.localized()
     }
 }
 

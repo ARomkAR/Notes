@@ -18,6 +18,7 @@
 "CLOSE" = "Zavřít";
 "NEW" = "Nový";
 "DELETE" = "Vymazat";
+"CHANGE_LANGUAGE_TITLE" = "Změnit jazyk";
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Držte se při aktualizaci poznámek";

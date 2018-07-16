@@ -59,6 +59,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="localisedTitle" value="HOME_NAVIGATION_TITLE"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="addNewNote" destination="SZD-lt-ave" id="uar-x7-9dJ"/>
                         <outlet property="notesTableView" destination="jHO-yP-Yyr" id="WTR-J3-xyS"/>
                     </connections>
                 </viewController>

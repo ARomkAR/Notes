@@ -7,17 +7,32 @@
 //
 
 import UIKit
+import Localize_Swift
 
 class NotesViewController: UIViewController {
 
+    // MARK:- Constants
     private static let fetchNotesActivityMessage = "FETCH_NOTES_ACTIVITY_MESSAGE"
     private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
-    private static let deleteActionTitle = "Delete"
-
+    private static let deleteActionTitle = "DELETE"
+    private static let changeLanguageTitle = "CHANGE_LANGUAGE_TITLE"
+    private static let changeLanguageCancelButtonTitle = "CANCEL"
     private static let estimatedRowHeight: CGFloat = 50
 
+    // MARK:- Private Properties
     private var notes: [Note] = []
     private var needsRefresh = true
+    private lazy var changeLanguageBarButton: UIBarButtonItem = {
+        let activeLanguage = Localize.currentLanguage()
+        let barButton = UIBarButtonItem(title: activeLanguage,
+                                        style: .plain,
+                                        target: self,
+                                        action: #selector(self.changeLanguageTapped(_:)))
+        return barButton
+    }()
+
+    // MARK:- Outlets
+    @IBOutlet private weak var addNewNote: UIBarButtonItem!
 
     @IBOutlet private weak var notesTableView: UITableView! {
         didSet {
@@ -29,9 +44,10 @@ class NotesViewController: UIViewController {
         }
     }
 
+    // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.configure()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -41,10 +57,23 @@ class NotesViewController: UIViewController {
         } else {
             self.notesTableView.reloadData()
         }
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.upadateLocalisedText),
+                                               name: NSNotification.Name(LCLLanguageChangeNotification),
+                                               object: nil)
+
     }
 
+    // MARK:- IBActions
     @IBAction private func addNewNote(_ sender: Any) {
         self.showDetails(for: nil)
+    }
+
+    // MARK:- Private functions
+    private func configure() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.rightBarButtonItem = self.changeLanguageBarButton
     }
 
     private func showDetails(for viewModel: NoteViewModel?) {
@@ -58,15 +87,15 @@ class NotesViewController: UIViewController {
         self.showActivity(withTitle: nil, andMessage: type(of: self).fetchNotesActivityMessage.localised)
         NotesAPIClient.getNotes(using: NotesNetworkManager.self,
                                 then: { [weak self] result in
-            self?.needsRefresh = false
-            switch result {
-            case .success(let notes):
-                self?.notes = notes
-                self?.notesTableView.reloadData()
-            case .failed(let error):
-                self?.showError(error)
-            }
-            self?.hideActivity()
+                                    self?.needsRefresh = false
+                                    switch result {
+                                    case .success(let notes):
+                                        self?.notes = notes
+                                        self?.notesTableView.reloadData()
+                                    case .failed(let error):
+                                        self?.showError(error)
+                                    }
+                                    self?.hideActivity()
         })
     }
 
@@ -75,15 +104,46 @@ class NotesViewController: UIViewController {
         NotesAPIClient.deleteNote(note: note,
                                   using: NotesNetworkManager.self,
                                   then: { [weak self] result in
-            self?.needsRefresh = false
-            if case .failed(let error) = result {
-                self?.showError(error)
-            }
-            self?.hideActivity()
+                                    self?.needsRefresh = false
+                                    if case .failed(let error) = result {
+                                        self?.showError(error)
+                                    }
+                                    self?.hideActivity()
         })
+    }
+
+    @objc private func changeLanguageTapped(_ sender: UIBarButtonItem) {
+        let selfType = type(of: self)
+        let actionSheet = UIAlertController(title: nil,
+                                            message: selfType.changeLanguageTitle.localised,
+                                            preferredStyle: .actionSheet)
+
+        for language in Localize.availableLanguages(true) {
+            let displayName = Localize.displayNameForLanguage(language)
+            let handler = { (alert: UIAlertAction!) -> Void in
+                Localize.setCurrentLanguage(language)
+            }
+            let languageAction = UIAlertAction(title: displayName,
+                                               style: .default,
+                                               handler: handler)
+
+            actionSheet.addAction(languageAction)
+        }
+        let cancelAction = UIAlertAction(title: selfType.changeLanguageCancelButtonTitle.localised,
+                                         style: .cancel,
+                                         handler: nil)
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+
+    @objc private func upadateLocalisedText() {
+        self.title = self.localisedTitle?.localised
+        self.changeLanguageBarButton.title = Localize.currentLanguage()
+        self.addNewNote.title = self.addNewNote.localisedTitle?.localised
     }
 }
 
+// MARK:- TableView Data Source
 extension NotesViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,6 +162,7 @@ extension NotesViewController: UITableViewDataSource {
     }
 }
 
+// MARK:- TableView Delegate
 extension NotesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -113,15 +174,17 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive,
                                           title: type(of: self).deleteActionTitle) { (action, indexPath) in
-            let noteToDelete = self.notes.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            self.delete(note: noteToDelete)
+                                            let noteToDelete = self.notes.remove(at: indexPath.row)
+                                            tableView.deleteRows(at: [indexPath], with: .fade)
+                                            self.delete(note: noteToDelete)
         }
         return [delete]
     }
 }
 
+// MARK:- Note details view controller event delegate
 extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
+
     func didPerformed(event: NoteDetailsViewControllerEvent) {
         switch event {
         case .addedNewNote(let note):
@@ -131,9 +194,7 @@ extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
                 self.notes[index] = note
             }
         case .deletedNote(let removedNote):
-            if let index = self.notes.index(of: removedNote) {
-                self.notes.remove(at: index)
-            }
+            self.notes.remove(element: removedNote)
         }
     }
 }

@@ -9,34 +9,54 @@
 import UIKit
 
 extension UIViewController {
+    static private var associatedKey = "UIViewController.localisedTitle"
+
     @IBInspectable var localisedTitle: String? {
-        set {
-            self.title = newValue?.localised
-        }
         get {
-            return self.title
+            return objc_getAssociatedObject(self, &type(of: self).associatedKey) as? String
+        }
+        set {
+            objc_setAssociatedObject(self,
+                                     &type(of: self).associatedKey,
+                                     newValue,
+                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+            self.title = newValue?.localised
         }
     }
 }
 
 extension UIBarItem {
+    static private var associatedKey = "UIBarItem.localisedTitle"
     @IBInspectable var localisedTitle: String? {
-        set {
-            self.title = newValue?.localised
-        }
         get {
-            return self.title
+            return objc_getAssociatedObject(self, &type(of: self).associatedKey) as? String
+        }
+        set {
+            objc_setAssociatedObject(self,
+                                     &type(of: self).associatedKey,
+                                     newValue,
+                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+            self.title = newValue?.localised
         }
     }
 }
 
 extension UILabel {
+    static private var associatedKey = "UILabel.localisedText"
+
     @IBInspectable var localisedText: String? {
-        set {
-            self.text = newValue?.localised
-        }
         get {
-            return self.text
+            return objc_getAssociatedObject(self, &type(of: self).associatedKey) as? String
+        }
+        set {
+            objc_setAssociatedObject(self,
+                                     &type(of: self).associatedKey,
+                                     newValue,
+                                     .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+            self.text = newValue?.localised
         }
     }
 }

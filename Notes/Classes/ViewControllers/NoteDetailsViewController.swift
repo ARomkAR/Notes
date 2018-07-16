@@ -35,13 +35,8 @@ final class NoteDetailsViewController: UIViewController, Reusable {
         }
     }
 
-    @IBOutlet weak var bottomToolBar: UIToolbar! {
-        didSet {
-            self.configureToolBar()
-        }
-    }
+    @IBOutlet weak var bottomToolBar: UIToolbar!
 
-    private let keyboardToolbar: UIToolbar = UIToolbar()
     private lazy var doneSaveBarbutton = UIBarButtonItem(title: type(of: self).doneButtonTitleLocalizationKey.localised,
                                                          style: .done,
                                                          target: self,
@@ -91,16 +86,16 @@ private extension NoteDetailsViewController {
         self.localisedTitle = self.note.state == .created ? selfType.newNoteLocalizationKey
             : selfType.editNoteLocalizationKey
 
+        if self.note.state != .created {
+            self.configureToolBar()
+        }
         self.noteTextView.text = self.note.title.value
     }
 
     func configureToolBar() {
-        if self.note.state != .created {
             let items = [UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteNote)),
                          UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
             self.bottomToolBar.setItems(items, animated: true)
-        }
-
     }
 
     @objc func saveEditButtonTapped() {
@@ -149,6 +144,7 @@ private extension NoteDetailsViewController {
             switch result {
             case .success(let note):
                 self?.navigationItem.rightBarButtonItem = nil
+                self?.configureToolBar()
                 self?.eventsDelegate?.didPerformed(event: .addedNewNote(note))
             case .failed(let error):
                 self?.showError(error)
