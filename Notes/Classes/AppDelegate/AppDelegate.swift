@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func customeiseAppearance() {
         let selfType = type(of: self)
+        self.window?.backgroundColor = UIColor.background
         UINavigationBar.appearance().largeTitleTextAttributes = selfType.titleTextAttributes
         UINavigationBar.appearance().titleTextAttributes = selfType.titleTextAttributes
         UINavigationBar.appearance().tintColor = UIColor.title
