@@ -12,15 +12,15 @@ import Foundation
 enum NotesEndpoint: Endpoint, URLRequestBuilder {
 
     // Path fragment
-    private static let notesPathFragment = "notes"
+    static let notesPathFragment = "notes"
     // Title parameter keys
-    private static let titleParameterKey = "title"
+    static let titleParameterKey = "title"
 
     // Retrives All notes
     case allNotes
 
     // Retrives details for provided `id`
-    case note(Int)
+    case noteDetails(Int)
 
     // Creates new note with provided `title`
     case create(String)
@@ -42,7 +42,7 @@ enum NotesEndpoint: Endpoint, URLRequestBuilder {
         switch self {
         case .allNotes, .create:
             return type(of: self).notesPathFragment
-        case .note(let id):
+        case .noteDetails(let id):
             return pathWithNoteID(id: id)
         case .update(let id, _), .delete(let id):
             return pathWithNoteID(id: id)
@@ -51,7 +51,7 @@ enum NotesEndpoint: Endpoint, URLRequestBuilder {
 
     var method: HTTPMethod {
         switch self {
-        case .allNotes, .note:
+        case .allNotes, .noteDetails:
             return .get
         case .create:
             return .post
