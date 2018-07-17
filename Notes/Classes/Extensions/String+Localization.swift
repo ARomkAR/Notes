@@ -9,14 +9,12 @@
 import Foundation
 import Localize_Swift
 
+/**
+    Decoupled convenience for getting localised version of string.
+    As we are using Localise Swift here for dynamic localization this uses its provided localization method over NSLocalised. 
+*/
 extension String {
     var localised: String {
-        let comment: String
-        #if debug
-        comment = "**\(comment)**"
-        #else
-        comment = self
-        #endif
         return self.localized()
     }
 }

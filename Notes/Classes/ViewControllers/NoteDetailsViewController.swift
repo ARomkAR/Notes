@@ -8,26 +8,32 @@
 
 import UIKit
 
-enum NoteDetailsViewControllerEvent {
-    case addedNewNote(Note)
-    case updatedNote(Note)
-    case deletedNote(Note)
-}
-
 protocol NoteDetailsViewControllerEventsDelegate: class {
 
-    func didPerformed(event: NoteDetailsViewControllerEvent)
+    /// Notifies event acured on view controller.
+    ///
+    /// - Parameter event: `NoteDetailsViewController.Event` object
+    func didPerformed(event: NoteDetailsViewController.Event)
 }
 
 final class NoteDetailsViewController: UIViewController, Reusable {
+
+    /// Activity events.
+    ///
+    /// - addedNewNote: Invoked when new note is created.
+    /// - updatedNote: Invoked when note is updated.
+    /// - deletedNote: Invoked when note is deleted.
+    enum Event {
+        case addedNewNote(Note)
+        case updatedNote(Note)
+        case deletedNote(Note)
+    }
 
     private static let newNoteLocalizationKey = "NEW_NOTE"
     private static let editNoteLocalizationKey = "NOTE"
     private static let doneButtonTitleLocalizationKey = "NOTE_DONE"
     private static let saveNoteActivityMessage = "SAVE_NOTE_ACTIVITY_MESSAGE"
     private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
-
-    weak var eventsDelegate: NoteDetailsViewControllerEventsDelegate?
 
     @IBOutlet private weak var noteTextView: UITextView! {
         didSet {
@@ -41,8 +47,14 @@ final class NoteDetailsViewController: UIViewController, Reusable {
                                                          style: .done,
                                                          target: self,
                                                          action: #selector(self.saveEditButtonTapped))
-    private var note = NoteViewModel(nil)
-    
+
+    private let logicController = NotesLogicController()
+    private var note: Note?
+
+    /// Event delegate object
+    weak var eventsDelegate: NoteDetailsViewControllerEventsDelegate?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
@@ -51,24 +63,30 @@ final class NoteDetailsViewController: UIViewController, Reusable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.addKeyboardObservers()
-        if self.note.state == .created {
+        if self.note == nil {
             self.noteTextView.becomeFirstResponder()
         }
     }
 }
 
+// MARK: - Public factory functions
 extension NoteDetailsViewController {
-    static func instance(with viewModel: NoteViewModel?) -> NoteDetailsViewController? {
+
+    /// Returns instance from storyboard and with provided note.
+    ///
+    /// - Parameter note: `Note` object. Provide nil object to create new note.
+    /// - Returns: `NoteDetailsViewController` instance
+    static func instance(with note: Note?) -> NoteDetailsViewController? {
         let storyboard = Storyboard.main.instance
         guard let viewController = storyboard.instantiateViewController(withIdentifier: self.defaultReuseIdentifier) as? NoteDetailsViewController else { return nil }
         viewController.navigationItem.largeTitleDisplayMode = .never
-        if let viewModel = viewModel {
-            viewController.note = viewModel
-        }
+
+        viewController.note = note
         return viewController
     }
 }
 
+// MARK: - Text view delegate
 extension NoteDetailsViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if self.navigationItem.rightBarButtonItem == nil {
@@ -76,20 +94,23 @@ extension NoteDetailsViewController: UITextViewDelegate {
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
-        self.note.title.value = textView.text
+        self.note?.title = textView.text
     }
 }
 
+// MARK: - Configurations
 private extension NoteDetailsViewController {
-    func configureView() {
-        let selfType = type(of: self)
-        self.localisedTitle = self.note.state == .created ? selfType.newNoteLocalizationKey
-            : selfType.editNoteLocalizationKey
 
-        if self.note.state != .created {
+    func configureView() {
+        self.navigationItem.largeTitleDisplayMode = .never
+        let selfType = type(of: self)
+        if self.note == nil {
+            self.localisedTitle = selfType.newNoteLocalizationKey
+        } else {
+            self.localisedTitle = selfType.editNoteLocalizationKey
             self.configureToolBar()
         }
-        self.noteTextView.text = self.note.title.value
+        self.noteTextView.text = self.note?.title
     }
 
     func configureToolBar() {
@@ -97,20 +118,12 @@ private extension NoteDetailsViewController {
                          UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
             self.bottomToolBar.setItems(items, animated: true)
     }
-
-    @objc func saveEditButtonTapped() {
-        self.noteTextView.resignFirstResponder()
-        if self.note.state == .created {
-            self.create()
-        } else {
-            self.update()
-        }
-    }
 }
 
-// MARK: Keyboard management
+// MARK: - Keyboard management
 private extension NoteDetailsViewController {
     func addKeyboardObservers() {
+
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self,
                                        selector: #selector(self.adjustForKeyboard),
@@ -123,6 +136,7 @@ private extension NoteDetailsViewController {
     }
 
     @objc func adjustForKeyboard(notification: Notification) {
+
         guard let keyboardScreenFrameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardScreenEndFrame = keyboardScreenFrameValue.cgRectValue
         let keyboardViewEndFrame = self.view.convert(keyboardScreenEndFrame, from: self.view.window)
@@ -136,49 +150,73 @@ private extension NoteDetailsViewController {
     }
 }
 
+// MARK: - Actions
 private extension NoteDetailsViewController {
 
-    func create() {
-        self.showActivity(withTitle: nil, andMessage: type(of: self).saveNoteActivityMessage.localised)
-        self.note.create {[weak self] result in
-            switch result {
-            case .success(let note):
-                self?.navigationItem.rightBarButtonItem = nil
-                self?.configureToolBar()
-                self?.eventsDelegate?.didPerformed(event: .addedNewNote(note))
-            case .failed(let error):
-                self?.showError(error)
-            }
-            self?.hideActivity()
-        }
+    func create(with title: String?) {
+        self.render(.loading(type(of: self).saveNoteActivityMessage))
+        self.logicController.create(with: title, then: { [weak self] state in
+            self?.render(state)
+        })
+
     }
 
     @objc func deleteNote() {
-        self.showActivity(withTitle: nil, andMessage: type(of: self).deleteNoteActivityMessage.localised)
+        guard let note = self.note else { return }
+        self.render(.loading(type(of: self).deleteNoteActivityMessage))
+        self.logicController.delete(note, then: { [weak self] state in
+            self?.render(state)
+        })
 
-        self.note.delete { [weak self] result in
-            switch result {
-            case .success(let note):
-                self?.eventsDelegate?.didPerformed(event: .deletedNote(note))
-            case .failed(let error):
-                self?.showError(error)
-            }
-            self?.hideActivity()
-            self?.navigationController?.popViewController(animated: true)
-        }
     }
 
-    func update() {
-        self.showActivity(withTitle: nil, andMessage: type(of: self).saveNoteActivityMessage.localised)
-        self.note.update {[weak self] result in
-            switch result {
-            case .success(let note):
-                self?.navigationItem.rightBarButtonItem = nil
-                self?.eventsDelegate?.didPerformed(event: .updatedNote(note))
-            case .failed(let error):
-                self?.showError(error)
-            }
-            self?.hideActivity()
+    @objc func saveEditButtonTapped() {
+        self.noteTextView.resignFirstResponder()
+
+        // If note is nil means we are creating new one otherwise update
+        guard let note = self.note else {
+            self.create(with: self.noteTextView.text)
+            return
+        }
+
+        self.render(.loading(type(of: self).saveNoteActivityMessage))
+        self.logicController.update(note, then: { [weak self] state in
+            self?.render(state)
+        })
+    }
+}
+
+// MARK: - State rendering
+private extension NoteDetailsViewController {
+
+    func render(_ state: NotesLogicController.State) {
+
+        switch state {
+        case .loading(let message):
+            self.showActivity(withTitle: nil, andMessage: message.localised)
+
+        case .created(let note):
+            self.navigationItem.rightBarButtonItem = nil
+            self.configureToolBar()
+            self.eventsDelegate?.didPerformed(event: .addedNewNote(note))
+            self.hideActivity()
+
+        case .updated(let note):
+            self.hideActivity()
+            self.navigationItem.rightBarButtonItem = nil
+            self.eventsDelegate?.didPerformed(event: .updatedNote(note))
+
+        case .deleted(let note):
+            self.hideActivity()
+            self.eventsDelegate?.didPerformed(event: .deletedNote(note))
+            self.navigationController?.popViewController(animated: true)
+
+        case .failed(let error):
+            self.hideActivity()
+            self.showError(error)
+
+        case .available:
+            break
         }
     }
 }

@@ -6,9 +6,11 @@
 //  Copyright © 2018 Omkar khedekar. All rights reserved.
 //
 
+
+/// Note data model
 struct Note: Decodable, Equatable {
     let id: Int
-    let title: String
+    var title: String
 
     static func == (lhs: Note, rhs: Note) -> Bool {
         return (lhs.id == rhs.id) && (lhs.title == rhs.title)

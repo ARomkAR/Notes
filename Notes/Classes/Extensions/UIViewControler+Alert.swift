@@ -9,8 +9,6 @@
 import UIKit
 
 extension UIViewController {
-
-    static private let defaultErrorTitle = "DEFAULT_ERROR_TITLE"
     static private let okButtonTitle = "OK"
 
     func showError(_ error: Error) {
@@ -24,7 +22,7 @@ extension UIViewController {
             title = error.localisedTitle
             message = error.localisedMessage
         } else {
-            title = selfType.defaultErrorTitle.localised
+            title = "\((error as NSError).code)"
             message = error.localizedDescription
         }
 

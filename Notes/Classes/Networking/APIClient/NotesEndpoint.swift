@@ -8,15 +8,27 @@
 
 import Foundation
 
-enum NotesEndpoint: Endpoint, URLRequestConvertible {
+/// Responsible for managing the endpoints of Notes API.
+enum NotesEndpoint: Endpoint, URLRequestBuilder {
 
+    // Path fragment
     private static let notesPathFragment = "notes"
+    // Title parameter keys
     private static let titleParameterKey = "title"
 
+    // Retrives All notes
     case allNotes
+
+    // Retrives details for provided `id`
     case note(Int)
+
+    // Creates new note with provided `title`
     case create(String)
+
+    // Updates note of given `id` with provided title.
     case update(Int, String)
+
+    // Deletes note of provided `id`.
     case delete(Int)
 
     static var base: String {

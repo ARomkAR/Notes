@@ -8,20 +8,44 @@
 
 import Foundation
 
+/// Common HTTP header fields.
+///
+/// - authorization: Authorization feild
+/// - contentType: Content type `ContentType`.
+/// - contentLength: Content length.
+/// - acceptCharset: Accepted charset.
+/// - acceptEncoding: Accept Encoding.
+/// - date: date
+/// - userAgent: userAgent
+/// - contentDisposition: contentDisposition
+/// - accept: accept
 enum CommonHeaderFields: String {
     case authorization = "Authorization"
     case contentType = "Content-Type"
     case contentLength = "Content-Length"
-    case contentMD5 = "Content-MD5"
     case acceptCharset = "Accept-Charset"
     case acceptEncoding = "Accept-Encoding"
     case date = "Date"
     case userAgent = "User-Agent"
     case contentDisposition = "Content-Disposition"
     case accept = "Accept"
-    case xAuthToken = "X-Auth-Token"
 }
 
+/// Common content types.
+///
+/// - javascript: javascript
+/// - json: json
+/// - formUrlEncoded: formUrlEncoded
+/// - xml: xml
+/// - zip: zip
+/// - pdf: pdf
+/// - formData: formData
+/// - css: css
+/// - html: html
+/// - plain: plain
+/// - png: png
+/// - jpeg: jpeg
+/// - gif: gif
 enum ContentType: String {
 
     case javascript = "application/javascript"
@@ -30,8 +54,6 @@ enum ContentType: String {
     case xml = "application/xml"
     case zip = "application/zip"
     case pdf = "application/pdf"
-    case mpeg = "audio/mpeg"
-    case vorbis = "audio/vorbis"
     case formData = "multipart/form-data"
     case css = "text/css"
     case html = "text/html"
@@ -39,25 +61,31 @@ enum ContentType: String {
     case png = "image/png"
     case jpeg = "image/jpeg"
     case gif = "image/gif"
-
 }
 
+/// HTTP request methods.
 enum HTTPMethod: String {
 
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case patch = "PATCH"
-    case delete = "DELETE"
+    case options = "OPTIONS"
+    case get     = "GET"
+    case head    = "HEAD"
+    case post    = "POST"
+    case put     = "PUT"
+    case patch   = "PATCH"
+    case delete  = "DELETE"
+    case trace   = "TRACE"
+    case connect = "CONNECT"
 }
 
+/// Supported parameter encoding types.
 enum ParameterEncoding {
-    case url
     case json
 }
 
+/**
+ This type wraps header key value pair and provides easy and typesafe interface to interact. 
+*/
 enum HTTPHeader {
-
     case contentDisposition(String)
     case accept([ContentType])
     case contentType(ContentType)

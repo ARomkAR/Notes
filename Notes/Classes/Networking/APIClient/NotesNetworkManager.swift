@@ -30,7 +30,7 @@ final class NotesNetworkManager: NetworkManager {
     private static let urlSession = URLSession.shared
     private static let rechability = Reachability()
     
-    static func execute(request: URLRequestConvertible,
+    static func execute(request: URLRequestBuilder,
                         then completion: @escaping (Result<Data?>) -> Void) {
         guard let connectivityType = self.rechability?.connection, connectivityType != .none else {
             completion(.failed(NotesNetworkManagerError.networkUnreachable))

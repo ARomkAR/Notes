@@ -7,11 +7,12 @@
 //
 
 import Foundation
+
+ /// `NotesAPIError` is the error type returned by NotesAPI endpoint.
 enum NotesAPIError: CustomLocalizableError {
     private static let defaultTitle = "DEFAULT_ERROR_TITLE"
     private static let defaultMessage = "REQUEST_ERROR_MESSAGE"
 
-    case invalidURL
     case invalidResponse
     case noData
 

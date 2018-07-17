@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+/// Network constants 
 enum NetworkConstants {
     static let baseURLString = "https://private-85872-note10.apiary-mock.com"
     static let acceptableStatusCodes = Set(200..<299)

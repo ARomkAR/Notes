@@ -8,9 +8,19 @@
 
 import Foundation
 
+/**
+ `NotesAPIClient` is responsible for handling all communcation with notes api with provided network manager as well as serializing results based on request response and requesters requirement.
+ */
 final class NotesAPIClient {
-    
-    static func getNotes<Manager: NetworkManager>(using manager: Manager.Type, then completion: @escaping (Result<[Note]>) -> Void) {
+
+
+    /// Retrives all notes.
+    ///
+    /// - Parameters:
+    ///   - manager: A `NetworkManager`
+    ///   - completion: Completion handle
+    static func getNotes<Manager: NetworkManager>(using manager: Manager.Type,
+                                                  then completion: @escaping (Result<[Note]>) -> Void) {
         manager.execute(request: NotesEndpoint.allNotes) { result in
             
             let resultToSend: Result<[Note]>
@@ -32,7 +42,14 @@ final class NotesAPIClient {
             }
         }
     }
-    
+
+
+    /// Retrives details for single note with given `id` if present.
+    ///
+    /// - Parameters:
+    ///   - id: An `id` for which details to be retrived.
+    ///   - manager: A `NetworkManager`
+    ///   - completion: A callback handle to be invoked on completion.
     static func getNoteDetails<Manager: NetworkManager>(withID id: Int,
                                                         using manager: Manager.Type,
                                                         then completion: @escaping (Result<Note>) -> Void) {
@@ -58,6 +75,12 @@ final class NotesAPIClient {
         }
     }
     
+    /// Create new note with provided title.
+    ///
+    /// - Parameters:
+    ///   - title: A title.
+    ///   - manager: A `NetworkManager`
+    ///   - completion: A callback handle to be invoked on completion.
     static func careateNote<Manager: NetworkManager>(withTitle title: String,
                                                      using manager: Manager.Type,
                                                      then completion: @escaping (Result<Note>) -> Void) {
@@ -83,6 +106,12 @@ final class NotesAPIClient {
         }
     }
     
+    /// Updates provided `Note`.
+    ///
+    /// - Parameters:
+    ///   - note: A `note` to be updated.
+    ///   - manager: A `NetworkManager`
+    ///   - completion: A callback handle to be invoked on completion.
     static func updateNote<Manager: NetworkManager>(note: Note,
                                                     using manager: Manager.Type,
                                                     then completion: @escaping (Result<Note>) -> Void) {
@@ -109,6 +138,12 @@ final class NotesAPIClient {
         }
     }
     
+    /// Deletes provided `Note`.
+    ///
+    /// - Parameters:
+    ///   - note: A `note` to be deleted.
+    ///   - manager: A `NetworkManager`
+    ///   - completion: A callback handle to be invoked on completion.
     static func deleteNote<Manager: NetworkManager>(note: Note,
                                                     using manager: Manager.Type,
                                                     then completion: @escaping (Result<Note>) -> Void) {

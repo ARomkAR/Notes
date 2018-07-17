@@ -11,6 +11,7 @@ import UIKit
 extension UIViewController {
     static private var associatedKey = "UIViewController.localisedTitle"
 
+    /// Provides ability to set locazable title via stored property
     @IBInspectable var localisedTitle: String? {
         get {
             return objc_getAssociatedObject(self, &type(of: self).associatedKey) as? String
@@ -28,6 +29,8 @@ extension UIViewController {
 
 extension UIBarItem {
     static private var associatedKey = "UIBarItem.localisedTitle"
+
+    /// Provides ability to set locazable title via stored property
     @IBInspectable var localisedTitle: String? {
         get {
             return objc_getAssociatedObject(self, &type(of: self).associatedKey) as? String
@@ -46,6 +49,7 @@ extension UIBarItem {
 extension UILabel {
     static private var associatedKey = "UILabel.localisedText"
 
+    /// Provides ability to set locazable text via stored property
     @IBInspectable var localisedText: String? {
         get {
             return objc_getAssociatedObject(self, &type(of: self).associatedKey) as? String

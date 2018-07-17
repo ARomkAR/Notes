@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - Color pallete
 extension UIColor {
     static let appPurple = UIColor(named: "app_purple")
     static let appBlue = UIColor(named: "app_blue")
