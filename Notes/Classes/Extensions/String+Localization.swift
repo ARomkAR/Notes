@@ -18,4 +18,3 @@ extension String {
         return self.localized()
     }
 }
-

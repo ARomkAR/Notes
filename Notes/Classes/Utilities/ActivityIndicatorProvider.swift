@@ -42,7 +42,6 @@ final class ActivityIndicatorProvider {
         }
     }
 
-
     /// Hides active activity indicator
     func hideActivity() {
         performOnMain {

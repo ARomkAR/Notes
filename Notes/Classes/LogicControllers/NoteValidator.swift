@@ -11,7 +11,6 @@ import Foundation
 /// VAlidated note
 enum NoteValidator {
 
-
     /// Vallidation error
     enum Error: CustomLocalizableError {
 

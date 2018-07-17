@@ -21,7 +21,7 @@ class NotesViewController: UIViewController {
     private static let notesTableViewCellIdentifier = "notesTableViewCellIdentifier"
     private static let estimatedRowHeight: CGFloat = 50
 
-    // MARK: -  Private Properties
+    // MARK: - Private Properties
     private var notes: [Note] = []
     private let logicController = NotesLogicController()
 
@@ -43,7 +43,7 @@ class NotesViewController: UIViewController {
         return barButton
     }()
 
-    // MARK: -  Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var addNewNote: UIBarButtonItem!
 
     @IBOutlet private weak var notesTableView: UITableView! {
@@ -52,19 +52,19 @@ class NotesViewController: UIViewController {
         }
     }
 
-    // MARK: -  Life cycle
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
         self.fetchNotes()
     }
 
-    // MARK: -  IBActions
+    // MARK: - IBActions
     @IBAction private func addNewNote(_ sender: Any) {
         self.showDetails(for: nil)
     }
 
-    // MARK: -  Private functions
+    // MARK: - Private functions
     private func configure() {
         self.navigationItem.rightBarButtonItem = self.changeLanguageBarButton
         NotificationCenter.default.addObserver(self,
@@ -85,7 +85,7 @@ class NotesViewController: UIViewController {
     }
 }
 
-// MARK: -  Actions
+// MARK: - Actions
 private extension NotesViewController {
 
     private func showDetails(for note: Note?) {
@@ -147,7 +147,7 @@ private extension NotesViewController {
     }
 }
 
-// MARK: -  State rendering
+// MARK: - State rendering
 private extension NotesViewController {
 
     func render(_ state: NotesLogicController.State) {
@@ -173,7 +173,7 @@ private extension NotesViewController {
     }
 }
 
-// MARK: -  TableView Data Source
+// MARK: - TableView Data Source
 extension NotesViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -189,7 +189,7 @@ extension NotesViewController: UITableViewDataSource {
     }
 }
 
-// MARK: -  TableView Delegate
+// MARK: - TableView Delegate
 extension NotesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -212,7 +212,7 @@ extension NotesViewController: UITableViewDelegate {
     }
 }
 
-// MARK: -  Note details view controller event delegate
+// MARK: - Note details view controller event delegate
 extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
 
     func didPerformed(event: NoteDetailsViewController.Event) {
@@ -228,4 +228,3 @@ extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
         }
     }
 }
-

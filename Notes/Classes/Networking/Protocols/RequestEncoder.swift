@@ -17,4 +17,3 @@ protocol RequestEncoder {
     /// - Throws: An 'Error' us unable encode paramaters.
     func encode(_ parameters: [String: Any]) throws -> Data
 }
-

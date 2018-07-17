@@ -6,7 +6,6 @@
 //  Copyright © 2018 Omkar khedekar. All rights reserved.
 //
 
-
 /// Note data model
 struct Note: Decodable, Equatable {
     let id: Int

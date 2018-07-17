@@ -9,7 +9,8 @@
 import Foundation
 
 /**
-  Types adopting the `NetworkManager` are responsible for executing `URLRequestBuilder` objects, as well as their underlying `URLRequest` and `NSURLSession`.
+  Types adopting the `NetworkManager` are responsible for executing `URLRequestBuilder` objects
+   As well as their underlying `URLRequest` and `NSURLSession`.
  */
 protocol NetworkManager {
 
