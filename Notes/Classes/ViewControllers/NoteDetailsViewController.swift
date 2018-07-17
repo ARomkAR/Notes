@@ -104,7 +104,6 @@ extension NoteDetailsViewController: UITextViewDelegate {
 private extension NoteDetailsViewController {
 
     func configureView() {
-        self.navigationItem.largeTitleDisplayMode = .never
         let selfType = type(of: self)
         if self.note == nil {
             self.localisedTitle = selfType.newNoteLocalizationKey
