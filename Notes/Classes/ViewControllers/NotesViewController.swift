@@ -184,8 +184,15 @@ extension NotesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: self).notesTableViewCellIdentifier,
                                                  for: indexPath)
 
-        cell.textLabel?.text = self.notes[indexPath.row].title
+        self.configure(cell, with: self.notes[indexPath.row])
         return cell
+    }
+
+    private func configure(_ cell: UITableViewCell, with note: Note) {
+        cell.backgroundColor = .clear
+        cell.textLabel?.numberOfLines = 3
+        cell.textLabel?.lineBreakMode = .byTruncatingTail
+        cell.textLabel?.text = note.title
     }
 }
 
