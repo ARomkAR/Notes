@@ -198,6 +198,14 @@ extension NotesViewController: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 extension NotesViewController: UITableViewDelegate {
+    // Fix to hide header and footer space added by group table view style
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
