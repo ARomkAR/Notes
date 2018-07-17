@@ -59,6 +59,11 @@ class NotesViewController: UIViewController {
         self.fetchNotes()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.notesTableView.reloadData()
+    }
+
     // MARK: - IBActions
     @IBAction private func addNewNote(_ sender: Any) {
         self.showDetails(for: nil)
