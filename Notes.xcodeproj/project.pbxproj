@@ -34,6 +34,7 @@
 		E58E2DCB20FA4EBC0051C8FE /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58E2DCA20FA4EBC0051C8FE /* NoteDetailsViewController.swift */; };
 		E58E2DCF20FA58170051C8FE /* Notes+Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58E2DCE20FA58170051C8FE /* Notes+Storyboards.swift */; };
 		E5980E0620FDC88D0060C05B /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5980E0520FDC88D0060C05B /* EndpointTests.swift */; };
+		E5980E0E20FDDCE30060C05B /* JSONRequestEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5980E0D20FDDCE30060C05B /* JSONRequestEncoderTests.swift */; };
 		E5C7665720FB74380091C188 /* UIViewControler+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665620FB74380091C188 /* UIViewControler+Alert.swift */; };
 		E5C7665B20FB79370091C188 /* CustomLocalizableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665A20FB79370091C188 /* CustomLocalizableError.swift */; };
 		E5C7665D20FB7C120091C188 /* NotesAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665C20FB7C120091C188 /* NotesAPIError.swift */; };
@@ -101,6 +102,7 @@
 		E58E2DCA20FA4EBC0051C8FE /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 		E58E2DCE20FA58170051C8FE /* Notes+Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notes+Storyboards.swift"; sourceTree = "<group>"; };
 		E5980E0520FDC88D0060C05B /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
+		E5980E0D20FDDCE30060C05B /* JSONRequestEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequestEncoderTests.swift; sourceTree = "<group>"; };
 		E5C7665620FB74380091C188 /* UIViewControler+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControler+Alert.swift"; sourceTree = "<group>"; };
 		E5C7665A20FB79370091C188 /* CustomLocalizableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLocalizableError.swift; sourceTree = "<group>"; };
 		E5C7665C20FB7C120091C188 /* NotesAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAPIError.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				E587D00D20F90E3F009CDAA4 /* Info.plist */,
 				E5FB265920FDB75200C5137C /* NotesEndpointTests.swift */,
 				E587D00B20F90E3F009CDAA4 /* NotesTests.swift */,
+				E5980E0D20FDDCE30060C05B /* JSONRequestEncoderTests.swift */,
 			);
 			path = NotesTests;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 			files = (
 				E5FB265A20FDB75200C5137C /* NotesEndpointTests.swift in Sources */,
 				E5980E0620FDC88D0060C05B /* EndpointTests.swift in Sources */,
+				E5980E0E20FDDCE30060C05B /* JSONRequestEncoderTests.swift in Sources */,
 				E587D00C20F90E3F009CDAA4 /* NotesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
