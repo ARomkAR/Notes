@@ -14,7 +14,7 @@
 		E55C871120FCE92D002C2709 /* NotesLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55C871020FCE92D002C2709 /* NotesLogicController.swift */; };
 		E55C871320FCF939002C2709 /* NoteValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55C871220FCF939002C2709 /* NoteValidator.swift */; };
 		E5678E8720FA3AFC000AB9A1 /* RequestEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5678E8620FA3AFC000AB9A1 /* RequestEncoder.swift */; };
-		E5678E8920FA3B6E000AB9A1 /* RequestEncoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5678E8820FA3B6E000AB9A1 /* RequestEncoders.swift */; };
+		E5678E8920FA3B6E000AB9A1 /* JSONRequestEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5678E8820FA3B6E000AB9A1 /* JSONRequestEncoder.swift */; };
 		E5678E8B20FA3E08000AB9A1 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5678E8A20FA3E08000AB9A1 /* URLRequestBuilder.swift */; };
 		E5678E8D20FA472E000AB9A1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5678E8C20FA472E000AB9A1 /* NetworkManager.swift */; };
 		E587CFFC20F90E3C009CDAA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E587CFFA20F90E3C009CDAA4 /* Main.storyboard */; };
@@ -75,7 +75,7 @@
 		E55C871020FCE92D002C2709 /* NotesLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesLogicController.swift; sourceTree = "<group>"; };
 		E55C871220FCF939002C2709 /* NoteValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteValidator.swift; sourceTree = "<group>"; };
 		E5678E8620FA3AFC000AB9A1 /* RequestEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoder.swift; sourceTree = "<group>"; };
-		E5678E8820FA3B6E000AB9A1 /* RequestEncoders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoders.swift; sourceTree = "<group>"; };
+		E5678E8820FA3B6E000AB9A1 /* JSONRequestEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequestEncoder.swift; sourceTree = "<group>"; };
 		E5678E8A20FA3E08000AB9A1 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 		E5678E8C20FA472E000AB9A1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E587CFF320F90E3C009CDAA4 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,7 +288,7 @@
 				E587D03220F9D33C009CDAA4 /* NetworkCommans.swift */,
 				E587D02720F9BFC4009CDAA4 /* Result.swift */,
 				E587D03C20F9D9EB009CDAA4 /* NetworkConstants.swift */,
-				E5678E8820FA3B6E000AB9A1 /* RequestEncoders.swift */,
+				E5678E8820FA3B6E000AB9A1 /* JSONRequestEncoder.swift */,
 			);
 			path = Commans;
 			sourceTree = "<group>";
@@ -524,7 +524,7 @@
 				E5678E8D20FA472E000AB9A1 /* NetworkManager.swift in Sources */,
 				E5C7665720FB74380091C188 /* UIViewControler+Alert.swift in Sources */,
 				E55C870B20FC7364002C2709 /* UIColor+AppColors.swift in Sources */,
-				E5678E8920FA3B6E000AB9A1 /* RequestEncoders.swift in Sources */,
+				E5678E8920FA3B6E000AB9A1 /* JSONRequestEncoder.swift in Sources */,
 				E55C871320FCF939002C2709 /* NoteValidator.swift in Sources */,
 				E5C7665B20FB79370091C188 /* CustomLocalizableError.swift in Sources */,
 				E587D01F20F9145F009CDAA4 /* AppDelegate.swift in Sources */,
