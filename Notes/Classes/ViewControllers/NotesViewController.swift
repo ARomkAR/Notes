@@ -72,6 +72,7 @@ class NotesViewController: UIViewController {
     // MARK: - Private functions
     private func configure() {
         self.navigationItem.rightBarButtonItem = self.changeLanguageBarButton
+        self.notesTableView.backgroundColor = UIColor.background
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.upadateLocalisedText),
                                                name: NSNotification.Name(LCLLanguageChangeNotification),
@@ -80,6 +81,7 @@ class NotesViewController: UIViewController {
 
     private func configureTableView() {
         let selfType = type(of: self)
+        self.notesTableView.backgroundColor = UIColor.background
         self.notesTableView.estimatedRowHeight = selfType.estimatedRowHeight
         self.notesTableView.rowHeight = UITableViewAutomaticDimension
         self.notesTableView.register(UITableViewCell.self,
@@ -197,6 +199,8 @@ extension NotesViewController: UITableViewDataSource {
         cell.backgroundColor = .clear
         cell.textLabel?.numberOfLines = 3
         cell.textLabel?.lineBreakMode = .byTruncatingTail
+        cell.textLabel?.textColor = UIColor.normalText
+        cell.contentView.backgroundColor = UIColor.background
         cell.textLabel?.text = note.title
     }
 }
@@ -226,7 +230,7 @@ extension NotesViewController: UITableViewDelegate {
         }
 
         let delete = UITableViewRowAction(style: .destructive,
-                                          title: type(of: self).deleteActionTitle,
+                                          title: type(of: self).deleteActionTitle.localised,
                                           handler: actionHandler)
         return [delete]
     }
@@ -238,7 +242,7 @@ extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
     func didPerformed(event: NoteDetailsViewController.Event) {
         switch event {
         case .addedNewNote(let note):
-            self.notes.append(note)
+            self.notes.insert(note, at: 0)
         case .updatedNote(let note):
             if let index = self.notes.index(where: { $0.id == note.id }) {
                 self.notes[index] = note

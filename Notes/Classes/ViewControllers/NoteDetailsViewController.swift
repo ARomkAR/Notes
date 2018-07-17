@@ -104,6 +104,7 @@ extension NoteDetailsViewController: UITextViewDelegate {
 private extension NoteDetailsViewController {
 
     func configureView() {
+        self.noteTextView.backgroundColor = UIColor.background
         let selfType = type(of: self)
         if self.note == nil {
             self.localisedTitle = selfType.newNoteLocalizationKey
