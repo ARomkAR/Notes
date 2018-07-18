@@ -28,6 +28,7 @@
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Hold on while we refresh your notes.";
+"FETCH_NOTE_DETAILS" = "Refreshing...";
 "SAVE_NOTE_ACTIVITY_MESSAGE" = "Hold on while we save your note.";
 "DELETE_NOTE_ACTIVITY_MESSAGE" = "Hold we are deleating your note.";
 

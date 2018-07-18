@@ -18,6 +18,7 @@ final class NotesLogicController {
     ///
     /// - loading: Loading data.
     /// - available: List of notes are available.
+    /// - details: Details for provided note id if exists.
     /// - created: New note created.
     /// - updated: Note is updated.
     /// - deleted: Note is deleted.
@@ -25,6 +26,7 @@ final class NotesLogicController {
     enum State {
         case loading(String)
         case available([Note])
+        case details(Note)
         case created(Note)
         case updated(Note)
         case deleted(Note)
@@ -49,6 +51,23 @@ final class NotesLogicController {
         }
 
         NotesAPIClient.getNotes(using: NotesNetworkManager.self, then: completion)
+    }
+
+    /// Fetch availble note details from server.
+    ///
+    /// - Parameter handle: Completion handle.
+    func fetchNoteDetails(withID noteID: Int, then handle: @escaping Completion) {
+
+        let completion: (Result<Note>) -> Void = { result in
+            switch result {
+            case .success(let note):
+                handle(.details(note))
+            case .failed(let error):
+                handle(.failed(error))
+            }
+        }
+
+        NotesAPIClient.getNoteDetails(withID: noteID, using: NotesNetworkManager.self, then: completion)
     }
 
     /// Create new note.

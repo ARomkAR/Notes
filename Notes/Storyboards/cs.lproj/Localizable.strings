@@ -28,6 +28,7 @@
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Držte se při aktualizaci poznámek";
+"FETCH_NOTE_DETAILS" = "Osvěžující...";
 "SAVE_NOTE_ACTIVITY_MESSAGE" = "Držte se, zatímco uložíme poznámku";
 "DELETE_NOTE_ACTIVITY_MESSAGE" = "Držte, odstraníme poznámku";
 
