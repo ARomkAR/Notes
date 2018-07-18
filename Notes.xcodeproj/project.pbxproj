@@ -39,6 +39,7 @@
 		E5C7665F20FB7DBA0091C188 /* UIViewControler+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665E20FB7DBA0091C188 /* UIViewControler+Activity.swift */; };
 		E5C7666120FB87850091C188 /* ThreadUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7666020FB87850091C188 /* ThreadUtil.swift */; };
 		E5C7666320FB8E6B0091C188 /* Array+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7666220FB8E6B0091C188 /* Array+Additions.swift */; };
+		E5DB1C1620FEF24000E1D2EE /* UIImage+Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB1C1520FEF24000E1D2EE /* UIImage+Icons.swift */; };
 		E5DB1C1820FEF31A00E1D2EE /* LocalizeSwift+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB1C1720FEF31A00E1D2EE /* LocalizeSwift+Additions.swift */; };
 		E5EE3FC020FB4D0B00B95614 /* ActivityIndicatorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EE3FBF20FB4D0B00B95614 /* ActivityIndicatorProvider.swift */; };
 		E5FB265820FD9D9200C5137C /* Endpoint+URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FB265720FD9D9200C5137C /* Endpoint+URLRequestBuilder.swift */; };
@@ -105,6 +106,7 @@
 		E5C7665E20FB7DBA0091C188 /* UIViewControler+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControler+Activity.swift"; sourceTree = "<group>"; };
 		E5C7666020FB87850091C188 /* ThreadUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadUtil.swift; sourceTree = "<group>"; };
 		E5C7666220FB8E6B0091C188 /* Array+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Additions.swift"; sourceTree = "<group>"; };
+		E5DB1C1520FEF24000E1D2EE /* UIImage+Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Icons.swift"; sourceTree = "<group>"; };
 		E5DB1C1720FEF31A00E1D2EE /* LocalizeSwift+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalizeSwift+Additions.swift"; sourceTree = "<group>"; };
 		E5EE3FBF20FB4D0B00B95614 /* ActivityIndicatorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorProvider.swift; sourceTree = "<group>"; };
 		E5FB265720FD9D9200C5137C /* Endpoint+URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Endpoint+URLRequestBuilder.swift"; sourceTree = "<group>"; };
@@ -331,10 +333,11 @@
 				E58E2DCE20FA58170051C8FE /* Notes+Storyboards.swift */,
 				E5FB9CB120FA248900E84F7E /* Reusable.swift */,
 				E5FB9C9E20FA158F00E84F7E /* String+Localization.swift */,
+				E55C870A20FC7364002C2709 /* UIColor+AppColorPallete.swift */,
+				E5DB1C1520FEF24000E1D2EE /* UIImage+Icons.swift */,
 				E5FB9CA320FA174600E84F7E /* UIKit+Localizable.swift */,
 				E5C7665E20FB7DBA0091C188 /* UIViewControler+Activity.swift */,
 				E5C7665620FB74380091C188 /* UIViewControler+Alert.swift */,
-				E55C870A20FC7364002C2709 /* UIColor+AppColorPallete.swift */,
 				E5DB1C1720FEF31A00E1D2EE /* LocalizeSwift+Additions.swift */,
 			);
 			path = Extensions;
@@ -531,6 +534,7 @@
 				E5C7665D20FB7C120091C188 /* NotesAPIError.swift in Sources */,
 				E5072F8820FC688100C3B873 /* AssociatedObject.swift in Sources */,
 				E5C7665F20FB7DBA0091C188 /* UIViewControler+Activity.swift in Sources */,
+				E5DB1C1620FEF24000E1D2EE /* UIImage+Icons.swift in Sources */,
 				E5678E8720FA3AFC000AB9A1 /* RequestEncoder.swift in Sources */,
 				E587D03B20F9D8B3009CDAA4 /* NotesNetworkManager.swift in Sources */,
 				E5EE3FC020FB4D0B00B95614 /* ActivityIndicatorProvider.swift in Sources */,

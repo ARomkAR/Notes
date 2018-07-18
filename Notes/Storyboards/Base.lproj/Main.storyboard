@@ -32,10 +32,7 @@
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Rmw-y5-eI6"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jM6-Vh-yBT"/>
-                                    <barButtonItem title="Item" id="SZD-lt-ave">
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localisedTitle" value="NEW"/>
-                                        </userDefinedRuntimeAttributes>
+                                    <barButtonItem systemItem="compose" id="SZD-lt-ave">
                                         <connections>
                                             <action selector="addNewNote:" destination="BYZ-38-t0r" id="sOI-dc-QY5"/>
                                         </connections>
@@ -61,7 +58,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="localisedTitle" value="HOME_NAVIGATION_TITLE"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="addNewNote" destination="SZD-lt-ave" id="uar-x7-9dJ"/>
                         <outlet property="notesTableView" destination="jHO-yP-Yyr" id="WTR-J3-xyS"/>
                     </connections>
                 </viewController>

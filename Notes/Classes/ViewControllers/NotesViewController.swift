@@ -44,8 +44,6 @@ class NotesViewController: UIViewController {
     }()
 
     // MARK: - Outlets
-    @IBOutlet private weak var addNewNote: UIBarButtonItem!
-
     @IBOutlet private weak var notesTableView: UITableView! {
         didSet {
             self.configureTableView()
@@ -153,7 +151,6 @@ private extension NotesViewController {
         self.refreshControl.attributedTitle = NSAttributedString(string: type(of: self).refreshControlTitle.localised)
         self.title = self.localisedTitle?.localised
         self.changeLanguageBarButton.title = Localize.currentLanguage()
-        self.addNewNote.title = self.addNewNote.localisedTitle?.localised
     }
 }
 
