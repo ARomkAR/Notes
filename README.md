@@ -35,9 +35,9 @@ or simply double tap on `Notes.xcworkspace`
 Same as running except `cmd+u`
 
 ## Credits
-- MBProgressHUD
-- ReachabilitySwift
-- Localize-Swift
+- [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+- [ReachabilitySwift](https://github.com/ashleymills/Reachability.swift)
+- [Localize-Swift](https://github.com/marmelroy/Localize-Swift)
 
 ## Meta
 
@@ -45,7 +45,7 @@ Omkar – [@MAD_Omkar](https://twitter.com/MAD_OmkAR)
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/ARomkAR](ARomkAR)
+[ARomkAR](https://github.com/ARomkAR)
 
 [swift-image]:https://img.shields.io/badge/swift-4.0-orange.svg
 [swift-url]: https://swift.org/
