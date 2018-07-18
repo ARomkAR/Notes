@@ -35,7 +35,7 @@ final class NoteDetailsViewController: UIViewController, Reusable {
     private static let saveNoteActivityMessage = "SAVE_NOTE_ACTIVITY_MESSAGE"
     private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
 
-    @IBOutlet private weak var noteTextView: UITextView! {
+    @IBOutlet private weak var noteTextView: LocalisedUITextView! {
         didSet {
             self.noteTextView.delegate = self
         }

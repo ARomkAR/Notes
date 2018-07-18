@@ -33,6 +33,7 @@
 		E587D04920FA01A4009CDAA4 /* NotesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E587D04820FA01A4009CDAA4 /* NotesAPIClient.swift */; };
 		E58E2DCB20FA4EBC0051C8FE /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58E2DCA20FA4EBC0051C8FE /* NoteDetailsViewController.swift */; };
 		E58E2DCF20FA58170051C8FE /* Notes+Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58E2DCE20FA58170051C8FE /* Notes+Storyboards.swift */; };
+		E5BC89DB20FF45B000389BD5 /* LocalisedUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BC89DA20FF45B000389BD5 /* LocalisedUITextView.swift */; };
 		E5C7665720FB74380091C188 /* UIViewControler+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665620FB74380091C188 /* UIViewControler+Alert.swift */; };
 		E5C7665B20FB79370091C188 /* CustomLocalizableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665A20FB79370091C188 /* CustomLocalizableError.swift */; };
 		E5C7665D20FB7C120091C188 /* NotesAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7665C20FB7C120091C188 /* NotesAPIError.swift */; };
@@ -100,6 +101,7 @@
 		E587D04820FA01A4009CDAA4 /* NotesAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesAPIClient.swift; sourceTree = "<group>"; };
 		E58E2DCA20FA4EBC0051C8FE /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 		E58E2DCE20FA58170051C8FE /* Notes+Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notes+Storyboards.swift"; sourceTree = "<group>"; };
+		E5BC89DA20FF45B000389BD5 /* LocalisedUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisedUITextView.swift; sourceTree = "<group>"; };
 		E5C7665620FB74380091C188 /* UIViewControler+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControler+Alert.swift"; sourceTree = "<group>"; };
 		E5C7665A20FB79370091C188 /* CustomLocalizableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLocalizableError.swift; sourceTree = "<group>"; };
 		E5C7665C20FB7C120091C188 /* NotesAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAPIError.swift; sourceTree = "<group>"; };
@@ -208,14 +210,15 @@
 		E587D01620F9145F009CDAA4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E55C870F20FCE915002C2709 /* LogicControllers */,
 				E587D01920F9145F009CDAA4 /* AppDelegate */,
 				E5FB9CA020FA159E00E84F7E /* Extensions */,
+				E55C870F20FCE915002C2709 /* LogicControllers */,
 				E587D02320F9B8EB009CDAA4 /* Models */,
 				E587D02620F9BA22009CDAA4 /* Networking */,
 				E5C7665920FB79210091C188 /* Protocols */,
 				E5EE3FBE20FB4CC900B95614 /* Utilities */,
 				E587D01720F9145F009CDAA4 /* ViewControllers */,
+				E5BC89D920FF456E00389BD5 /* Views */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -306,6 +309,14 @@
 				E5C7665C20FB7C120091C188 /* NotesAPIError.swift */,
 			);
 			path = APIClient;
+			sourceTree = "<group>";
+		};
+		E5BC89D920FF456E00389BD5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5BC89DA20FF45B000389BD5 /* LocalisedUITextView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E5C7665920FB79210091C188 /* Protocols */ = {
@@ -526,6 +537,7 @@
 				E58E2DCB20FA4EBC0051C8FE /* NoteDetailsViewController.swift in Sources */,
 				E5FB265820FD9D9200C5137C /* Endpoint+URLRequestBuilder.swift in Sources */,
 				E587D04920FA01A4009CDAA4 /* NotesAPIClient.swift in Sources */,
+				E5BC89DB20FF45B000389BD5 /* LocalisedUITextView.swift in Sources */,
 				E5678E8B20FA3E08000AB9A1 /* URLRequestBuilder.swift in Sources */,
 				E55C871120FCE92D002C2709 /* NotesLogicController.swift in Sources */,
 				E5DB1C1820FEF31A00E1D2EE /* LocalizeSwift+Additions.swift in Sources */,
