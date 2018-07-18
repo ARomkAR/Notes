@@ -8,7 +8,9 @@
 
 import Foundation
 import Reachability
-
+/**
+  Possible errors emited by `NotesNetworkManager`.
+ */
 enum NotesNetworkManagerError: CustomLocalizableError {
     static private let errorTitle = "NETWORK_CONNECTIVITY_ERROR_TITLE"
     static private let errorMessage = "NETWORK_ERROR_MESSAGE"
@@ -24,6 +26,9 @@ enum NotesNetworkManagerError: CustomLocalizableError {
     }
 }
 
+/**
+ `NotesNetworkManager` is responsible for handling URL Sessions and tasks based on network connectivity.
+ */
 final class NotesNetworkManager: NetworkManager {
     
     private typealias URLSessionCompletionHandler = (Data?, URLResponse?, Error?) -> Void
