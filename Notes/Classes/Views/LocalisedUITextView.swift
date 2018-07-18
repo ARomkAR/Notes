@@ -8,7 +8,10 @@
 
 import UIKit
 import Localize_Swift
-
+/**
+ Updates key board language dynamically based on current selected language.
+ If requested language is not in users selected languages then falls back on default.
+*/
 class LocalisedUITextView: UITextView {
 
     override var textInputMode: UITextInputMode? {
