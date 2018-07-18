@@ -28,6 +28,7 @@
 
 //Activity
 "FETCH_NOTES_ACTIVITY_MESSAGE" = "Удерживайте, пока мы обновляем ваши заметки";
+"FETCH_NOTE_DETAILS" = "освежение...";
 "SAVE_NOTE_ACTIVITY_MESSAGE" = "Держитесь, пока мы сохраняем ваше примечание";
 "DELETE_NOTE_ACTIVITY_MESSAGE" = "Удерживайте, мы удаляем ваше примечание";
 

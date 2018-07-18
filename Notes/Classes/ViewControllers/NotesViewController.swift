@@ -11,7 +11,7 @@ import Localize_Swift
 
 class NotesViewController: UIViewController {
     
-    // Constants
+    // MARK: - Constants
     private static let fetchNotesActivityMessage = "FETCH_NOTES_ACTIVITY_MESSAGE"
     private static let deleteNoteActivityMessage = "DELETE_NOTE_ACTIVITY_MESSAGE"
     private static let deleteActionTitle = "DELETE"
@@ -211,7 +211,7 @@ private extension NotesViewController {
         case .failed(let error):
             self.hideActivity()
             self.showError(error)
-        case .created, .updated:
+        case .created, .details, .updated:
             break
         }
     }
