@@ -19,6 +19,10 @@ class NotesViewController: UIViewController {
     private static let changeLanguageCancelButtonTitle = "CANCEL"
     private static let refreshControlTitle = "PULL_DOWN_REFRESH_TITLE"
     private static let notesTableViewCellIdentifier = "notesTableViewCellIdentifier"
+    static private let changeLanguageConfermationMessage = "CHANGE_LANGUAGE_CONFERMATION_MESSAGE"
+    static private let changeLanguageConfermation = "CHANGE_LANGUAGE_CONFERMATION"
+    static private let placeholder = "####"
+    static private let okButtonTitle = "OK"
     private static let estimatedRowHeight: CGFloat = 50
 
     // MARK: - Private Properties
@@ -28,14 +32,11 @@ class NotesViewController: UIViewController {
     private lazy var refreshControl: UIRefreshControl = {
         let control = UIRefreshControl()
         control.attributedTitle = NSAttributedString(string: type(of: self).refreshControlTitle.localised)
-        control.addTarget(self,
-                          action: #selector(self.refresh),
-                          for: .valueChanged)
+        control.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
         return control
     }()
 
     private lazy var changeLanguageBarButton: UIBarButtonItem = {
-        let activeLanguage = Localize.currentLanguage()
         let barButton = UIBarButtonItem(image: .settings,
                                         style: UIBarButtonItemStyle.plain,
                                         target: self,
@@ -113,27 +114,27 @@ private extension NotesViewController {
         }
     }
 
-    @objc private func refresh() {
-        self.refreshControl.endRefreshing()
-        self.fetchNotes()
-    }
-
-    @objc private func changeLanguageTapped(_ sender: UIBarButtonItem) {
+    private func showLanguageChangePrompt() {
         let selfType = type(of: self)
+        typealias AlertActionHandle = (UIAlertAction) -> Void
         let actionSheet = UIAlertController(title: nil,
                                             message: selfType.changeLanguageTitle.localised,
                                             preferredStyle: .actionSheet)
-
+        let currentLanguage = Localize.currentLanguage()
         Localize.availableLanguages(true).forEach { language in
 
             let defaultName = Localize.defaultLanguageDisplayName(for: language)
             let translatedName = NSLocale(localeIdentifier: language).displayName(forKey: .identifier, value: language) ?? ""
             let displayName = "\(translatedName) (\(defaultName))"
-
-            let handler: (UIAlertAction) -> Void = { _ in
-                Localize.setCurrentLanguage(language)
+            let confirmHandle: AlertActionHandle?
+            if language != currentLanguage {
+                confirmHandle = { _ in
+                    self.showConfirmLanguagePrompt(for: language, with: displayName)
+                }
+            } else {
+                confirmHandle = nil
             }
-            let languageAction = UIAlertAction(title: displayName, style: .default, handler: handler)
+            let languageAction = UIAlertAction(title: displayName, style: .default, handler: confirmHandle)
 
             actionSheet.addAction(languageAction)
         }
@@ -145,6 +146,41 @@ private extension NotesViewController {
         actionSheet.addAction(cancelAction)
 
         self.present(actionSheet, animated: true, completion: nil)
+    }
+
+    private func showConfirmLanguagePrompt(for language: String, with displayName: String) {
+        let selfType = type(of: self)
+        var message = selfType.changeLanguageConfermationMessage.localised
+        message = message.replacingOccurrences(of: selfType.placeholder, with: displayName)
+
+        let alertViewController = UIAlertController(title: nil,
+                                                    message: message,
+                                                    preferredStyle: .alert)
+
+        var confirmButtonText = selfType.changeLanguageConfermation.localised
+        confirmButtonText = confirmButtonText.replacingOccurrences(of: selfType.placeholder, with: displayName)
+
+        let confirmHandler: (UIAlertAction) -> Void = { _ in
+            Localize.setCurrentLanguage(language)
+        }
+
+        let confirmAction = UIAlertAction(title: confirmButtonText, style: .default, handler: confirmHandler)
+        alertViewController.addAction(confirmAction)
+
+        let cancelAction = UIAlertAction(title: selfType.changeLanguageCancelButtonTitle.localised,
+                                         style: .cancel,
+                                         handler: nil)
+        alertViewController.addAction(cancelAction)
+        self.present(alertViewController, animated: true, completion: nil)
+    }
+
+    @objc private func refresh() {
+        self.refreshControl.endRefreshing()
+        self.fetchNotes()
+    }
+
+    @objc private func changeLanguageTapped(_ sender: UIBarButtonItem) {
+        self.showLanguageChangePrompt()
     }
 
     @objc private func upadateLocalisedText() {

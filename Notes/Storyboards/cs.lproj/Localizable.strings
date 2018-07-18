@@ -18,7 +18,12 @@
 "CLOSE" = "Zavřít";
 "NEW" = "Nový";
 "DELETE" = "Vymazat";
+
+///Change Language
 "CHANGE_LANGUAGE_TITLE" = "Vyber jazyk";
+"CHANGE_LANGUAGE_CONFERMATION_MESSAGE" = "Chtěli byste změnit jazyk na\n\"####\"?";
+"CHANGE_LANGUAGE_CONFERMATION" = "Změnit \"####\"";
+
 "PULL_DOWN_REFRESH_TITLE" = "Táhněte za obnovení";
 
 //Activity

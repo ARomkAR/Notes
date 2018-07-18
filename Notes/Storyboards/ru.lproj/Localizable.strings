@@ -18,7 +18,12 @@
 "CLOSE" = "Закрыть";
 "NEW" = "Nový";
 "DELETE" = "Удалить";
+
+///Change Language
 "CHANGE_LANGUAGE_TITLE" = "Vyberite yazyk";
+"CHANGE_LANGUAGE_CONFERMATION_MESSAGE" = "Вы хотите изменить язык на\n\"####\"?";
+"CHANGE_LANGUAGE_CONFERMATION" = "Изменить на \"####\"";
+
 "PULL_DOWN_REFRESH_TITLE" = "Потяните, чтобы обновить";
 
 //Activity

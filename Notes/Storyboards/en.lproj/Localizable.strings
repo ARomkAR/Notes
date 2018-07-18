@@ -18,7 +18,12 @@
 "CLOSE" = "Close";
 "NEW" = "New";
 "DELETE" = "Delete";
+
+///Change Language
 "CHANGE_LANGUAGE_TITLE" = "Choose Language";
+"CHANGE_LANGUAGE_CONFERMATION_MESSAGE" = "Would you like to change the language to\n\"####\"?";
+"CHANGE_LANGUAGE_CONFERMATION" = "Change to \"####\"";
+
 "PULL_DOWN_REFRESH_TITLE" = "Pull to refresh";
 
 //Activity
@@ -34,3 +39,4 @@
 "NETWORK_ERROR_MESSAGE" = "Please check your network connectivity and try again later.";
 "NOTE_VALIDATION_ERROR" = "Oops!";
 "NOTE_VALIDATION_ERROR_MESSAGE" = "This note seems to be empty, lets add something to it";
+
