@@ -8,10 +8,8 @@
 
 import XCTest
 @testable import Notes
-
 class JSONRequestEncoderTests: XCTestCase {
-    
-    func testJSONRequestEncoder() {
+    func testJSONRequestEncoderWithVaidValues() {
         let jsonRequestEncoder = JSONRequestEncoder()
         XCTAssertNotNil(try? jsonRequestEncoder.encode([:]))
         XCTAssertNotNil(try? jsonRequestEncoder.encode(["test key": 1]))

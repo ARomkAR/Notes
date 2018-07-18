@@ -12,14 +12,16 @@ import XCTest
 class NoteTests: XCTestCase {
 
     func testNoteDecoading() {
-        guard let validTestJSON  = "{\"id\": 1, \"title\": \"Jogging in park\"}".data(using: .utf8) else {
+        guard let validTestJSON  = "{\"id\": 1, \"title\": \"title\"}".data(using: .utf8) else {
             XCTFail("Unable to create data")
             return
         }
         XCTAssertNotNil(validTestJSON)
+        let expectedNote = Note(id: 1, title: "title")
         let note = try? JSONDecoder().decode(Note.self, from: validTestJSON)
         XCTAssertNotNil(note)
-        XCTAssertEqual(note?.title, "Jogging in park")
+        XCTAssertEqual(note?.title, "title")
         XCTAssertEqual(note?.id, 1)
+        XCTAssertEqual(note, expectedNote)
     }
 }

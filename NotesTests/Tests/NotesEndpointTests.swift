@@ -23,13 +23,11 @@ class NotesEndpointTests: XCTestCase {
         XCTAssertNil(getAllNotes.headers)
         XCTAssertNil(getAllNotes.parameters)
         XCTAssertNil(getAllNotes.parameterEncoding)
-        guard let request = try? getAllNotes.buildRequest() else {
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(request.url?.absoluteString, "\(NotesEndpoint.base)/\(getAllNotes.path)")
-        XCTAssertEqual(request.httpMethod, HTTPMethod.get.rawValue)
-        XCTAssertNil(request.httpBody)
+        let request = try? getAllNotes.buildRequest()
+        XCTAssertNotNil(request)
+        XCTAssertEqual(request?.url?.absoluteString, "\(NotesEndpoint.base)/\(getAllNotes.path)")
+        XCTAssertEqual(request?.httpMethod, HTTPMethod.get.rawValue)
+        XCTAssertNil(request?.httpBody)
 
     }
 
@@ -43,14 +41,10 @@ class NotesEndpointTests: XCTestCase {
         XCTAssertNil(noteDetails.headers)
         XCTAssertNil(noteDetails.parameters)
         XCTAssertNil(noteDetails.parameterEncoding)
-
-        guard let request = try? noteDetails.buildRequest() else {
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(request.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
-        XCTAssertEqual(request.httpMethod, HTTPMethod.get.rawValue)
-        XCTAssertNil(request.httpBody)
+        let request = try? noteDetails.buildRequest()
+        XCTAssertEqual(request?.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
+        XCTAssertEqual(request?.httpMethod, HTTPMethod.get.rawValue)
+        XCTAssertNil(request?.httpBody)
 
     }
 
@@ -72,14 +66,9 @@ class NotesEndpointTests: XCTestCase {
         }
         XCTAssertEqual(parameters, expectedParameters)
         XCTAssertTrue(createNote.parameterEncoding == .json)
-
-        guard let request = try? createNote.buildRequest() else {
-            XCTFail()
-            return
-        }
-
-        XCTAssertEqual(request.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
-        XCTAssertEqual(request.httpMethod, HTTPMethod.post.rawValue)
+        let request = try? createNote.buildRequest()
+        XCTAssertEqual(request?.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
+        XCTAssertEqual(request?.httpMethod, HTTPMethod.post.rawValue)
         self.varifyBody(in: request, expectedBodyAsString: exptectedRequestBodyString)
         self.varifyContentTypeJSONHeader(in: request)
     }
@@ -102,13 +91,9 @@ class NotesEndpointTests: XCTestCase {
         }
         XCTAssertEqual(parameters, expectedParameters)
         XCTAssertTrue(noteUpdate.parameterEncoding == .json)
-
-        guard let request = try? noteUpdate.buildRequest() else {
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(request.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
-        XCTAssertEqual(request.httpMethod, HTTPMethod.put.rawValue)
+        let request = try? noteUpdate.buildRequest()
+        XCTAssertEqual(request?.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
+        XCTAssertEqual(request?.httpMethod, HTTPMethod.put.rawValue)
         self.varifyBody(in: request, expectedBodyAsString: exptectedRequestBodyString)
        self.varifyContentTypeJSONHeader(in: request)
     }
@@ -123,19 +108,15 @@ class NotesEndpointTests: XCTestCase {
         XCTAssertNil(deleteNote.headers)
         XCTAssertNil(deleteNote.parameters)
         XCTAssertNil(deleteNote.parameterEncoding)
-
-        guard let request = try? deleteNote.buildRequest() else {
-            XCTFail()
-            return
-        }
-        XCTAssertEqual(request.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
-        XCTAssertEqual(request.httpMethod, HTTPMethod.delete.rawValue)
-        XCTAssertNil(request.httpBody)
+        let request = try? deleteNote.buildRequest()
+        XCTAssertEqual(request?.url?.absoluteString, "\(NotesEndpoint.base)/\(exptectedPath)")
+        XCTAssertEqual(request?.httpMethod, HTTPMethod.delete.rawValue)
+        XCTAssertNil(request?.httpBody)
 
     }
 
-    private func varifyBody(in request: URLRequest, expectedBodyAsString: String) {
-        guard let httpBody = request.httpBody else {
+    private func varifyBody(in request: URLRequest?, expectedBodyAsString: String) {
+        guard let httpBody = request?.httpBody else {
             XCTFail("Request body should not be nil")
             return
         }
@@ -147,9 +128,9 @@ class NotesEndpointTests: XCTestCase {
         XCTAssertEqual(stringBody, expectedBodyAsString)
     }
 
-    private func varifyContentTypeJSONHeader(in request: URLRequest) {
+    private func varifyContentTypeJSONHeader(in request: URLRequest?) {
         let failureMessage = "Request header should contain 'Content-Type' header with 'application/json'"
-        guard let value = request.value(forHTTPHeaderField: CommonHeaderFields.contentType.rawValue) else {
+        guard let value = request?.value(forHTTPHeaderField: CommonHeaderFields.contentType.rawValue) else {
             XCTFail(failureMessage)
             return
         }
