@@ -36,8 +36,8 @@ class NotesViewController: UIViewController {
 
     private lazy var changeLanguageBarButton: UIBarButtonItem = {
         let activeLanguage = Localize.currentLanguage()
-        let barButton = UIBarButtonItem(title: activeLanguage,
-                                        style: .plain,
+        let barButton = UIBarButtonItem(image: .settings,
+                                        style: UIBarButtonItemStyle.plain,
                                         target: self,
                                         action: #selector(self.changeLanguageTapped(_:)))
         return barButton
