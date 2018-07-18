@@ -13,6 +13,6 @@ enum Storyboard: String {
     case main = "Main"
 
     var instance: UIStoryboard {
-        return UIStoryboard(name: self.rawValue , bundle: nil)
+        return UIStoryboard(name: self.rawValue, bundle: nil)
     }
 }

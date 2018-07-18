@@ -21,7 +21,7 @@ class NotesViewController: UIViewController {
     private static let notesTableViewCellIdentifier = "notesTableViewCellIdentifier"
     private static let estimatedRowHeight: CGFloat = 50
 
-    // MARK: -  Private Properties
+    // MARK: - Private Properties
     private var notes: [Note] = []
     private let logicController = NotesLogicController()
 
@@ -36,37 +36,41 @@ class NotesViewController: UIViewController {
 
     private lazy var changeLanguageBarButton: UIBarButtonItem = {
         let activeLanguage = Localize.currentLanguage()
-        let barButton = UIBarButtonItem(title: activeLanguage,
-                                        style: .plain,
+        let barButton = UIBarButtonItem(image: .settings,
+                                        style: UIBarButtonItemStyle.plain,
                                         target: self,
                                         action: #selector(self.changeLanguageTapped(_:)))
         return barButton
     }()
 
-    // MARK: -  Outlets
-    @IBOutlet private weak var addNewNote: UIBarButtonItem!
-
+    // MARK: - Outlets
     @IBOutlet private weak var notesTableView: UITableView! {
         didSet {
             self.configureTableView()
         }
     }
 
-    // MARK: -  Life cycle
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
         self.fetchNotes()
     }
 
-    // MARK: -  IBActions
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.notesTableView.reloadData()
+    }
+
+    // MARK: - IBActions
     @IBAction private func addNewNote(_ sender: Any) {
         self.showDetails(for: nil)
     }
 
-    // MARK: -  Private functions
+    // MARK: - Private functions
     private func configure() {
         self.navigationItem.rightBarButtonItem = self.changeLanguageBarButton
+        self.notesTableView.backgroundColor = UIColor.background
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.upadateLocalisedText),
                                                name: NSNotification.Name(LCLLanguageChangeNotification),
@@ -75,6 +79,7 @@ class NotesViewController: UIViewController {
 
     private func configureTableView() {
         let selfType = type(of: self)
+        self.notesTableView.backgroundColor = UIColor.background
         self.notesTableView.estimatedRowHeight = selfType.estimatedRowHeight
         self.notesTableView.rowHeight = UITableViewAutomaticDimension
         self.notesTableView.register(UITableViewCell.self,
@@ -85,7 +90,7 @@ class NotesViewController: UIViewController {
     }
 }
 
-// MARK: -  Actions
+// MARK: - Actions
 private extension NotesViewController {
 
     private func showDetails(for note: Note?) {
@@ -120,7 +125,10 @@ private extension NotesViewController {
                                             preferredStyle: .actionSheet)
 
         Localize.availableLanguages(true).forEach { language in
-            let displayName = Localize.displayNameForLanguage(language)
+
+            let defaultName = Localize.defaultLanguageDisplayName(for: language)
+            let translatedName = NSLocale(localeIdentifier: language).displayName(forKey: .identifier, value: language) ?? ""
+            let displayName = "\(translatedName) (\(defaultName))"
 
             let handler: (UIAlertAction) -> Void = { _ in
                 Localize.setCurrentLanguage(language)
@@ -143,11 +151,10 @@ private extension NotesViewController {
         self.refreshControl.attributedTitle = NSAttributedString(string: type(of: self).refreshControlTitle.localised)
         self.title = self.localisedTitle?.localised
         self.changeLanguageBarButton.title = Localize.currentLanguage()
-        self.addNewNote.title = self.addNewNote.localisedTitle?.localised
     }
 }
 
-// MARK: -  State rendering
+// MARK: - State rendering
 private extension NotesViewController {
 
     func render(_ state: NotesLogicController.State) {
@@ -173,7 +180,7 @@ private extension NotesViewController {
     }
 }
 
-// MARK: -  TableView Data Source
+// MARK: - TableView Data Source
 extension NotesViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -184,13 +191,30 @@ extension NotesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: type(of: self).notesTableViewCellIdentifier,
                                                  for: indexPath)
 
-        cell.textLabel?.text = self.notes[indexPath.row].title
+        self.configure(cell, with: self.notes[indexPath.row])
         return cell
+    }
+
+    private func configure(_ cell: UITableViewCell, with note: Note) {
+        cell.backgroundColor = .clear
+        cell.textLabel?.numberOfLines = 3
+        cell.textLabel?.lineBreakMode = .byTruncatingTail
+        cell.textLabel?.textColor = UIColor.normalText
+        cell.contentView.backgroundColor = UIColor.background
+        cell.textLabel?.text = note.title
     }
 }
 
-// MARK: -  TableView Delegate
+// MARK: - TableView Delegate
 extension NotesViewController: UITableViewDelegate {
+    // Fix to hide header and footer space added by group table view style
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -206,19 +230,19 @@ extension NotesViewController: UITableViewDelegate {
         }
 
         let delete = UITableViewRowAction(style: .destructive,
-                                          title: type(of: self).deleteActionTitle,
+                                          title: type(of: self).deleteActionTitle.localised,
                                           handler: actionHandler)
         return [delete]
     }
 }
 
-// MARK: -  Note details view controller event delegate
+// MARK: - Note details view controller event delegate
 extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
 
     func didPerformed(event: NoteDetailsViewController.Event) {
         switch event {
         case .addedNewNote(let note):
-            self.notes.append(note)
+            self.notes.insert(note, at: 0)
         case .updatedNote(let note):
             if let index = self.notes.index(where: { $0.id == note.id }) {
                 self.notes[index] = note
@@ -228,4 +252,3 @@ extension NotesViewController: NoteDetailsViewControllerEventsDelegate {
         }
     }
 }
-

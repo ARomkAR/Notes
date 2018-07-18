@@ -18,7 +18,7 @@
 "CLOSE" = "Close";
 "NEW" = "New";
 "DELETE" = "Delete";
-"CHANGE_LANGUAGE_TITLE" = "Change Language";
+"CHANGE_LANGUAGE_TITLE" = "Choose Language";
 "PULL_DOWN_REFRESH_TITLE" = "Pull to refresh";
 
 //Activity

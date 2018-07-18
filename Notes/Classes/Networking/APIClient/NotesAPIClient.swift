@@ -9,10 +9,10 @@
 import Foundation
 
 /**
- `NotesAPIClient` is responsible for handling all communcation with notes api with provided network manager as well as serializing results based on request response and requesters requirement.
+ `NotesAPIClient` is responsible for handling all communcation with notes api with provided network manager
+ as well as serializing results based on request response and requesters requirement.
  */
 final class NotesAPIClient {
-
 
     /// Retrives all notes.
     ///
@@ -42,7 +42,6 @@ final class NotesAPIClient {
             }
         }
     }
-
 
     /// Retrives details for single note with given `id` if present.
     ///

@@ -9,7 +9,8 @@
 import Foundation
 
 /**
- `NotesLogicController` is responsible for handling all data related logic e.g. data validation, retrival and emits `NotesLogicController.State` upon completion which is then supposed to be handled by underling hadler.
+ `NotesLogicController` is responsible for handling all data related logic.
+ Including data validation, retrival and emits `NotesLogicController.State` upon completion which is then supposed to be handled by underling hadler.
  */
 final class NotesLogicController {
 

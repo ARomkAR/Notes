@@ -6,7 +6,6 @@
 //  Copyright © 2018 Omkar khedekar. All rights reserved.
 //
 
-
 /**
 Used to represent state of an operation or process.
  - success: The operation is successful and has provided associated value.

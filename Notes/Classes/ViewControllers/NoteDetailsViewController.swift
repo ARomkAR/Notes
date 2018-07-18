@@ -41,7 +41,7 @@ final class NoteDetailsViewController: UIViewController, Reusable {
         }
     }
 
-    @IBOutlet weak var bottomToolBar: UIToolbar!
+    @IBOutlet private weak var bottomToolBar: UIToolbar!
 
     private lazy var doneSaveBarbutton = UIBarButtonItem(title: type(of: self).doneButtonTitleLocalizationKey.localised,
                                                          style: .done,
@@ -53,7 +53,6 @@ final class NoteDetailsViewController: UIViewController, Reusable {
 
     /// Event delegate object
     weak var eventsDelegate: NoteDetailsViewControllerEventsDelegate?
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +77,10 @@ extension NoteDetailsViewController {
     /// - Returns: `NoteDetailsViewController` instance
     static func instance(with note: Note?) -> NoteDetailsViewController? {
         let storyboard = Storyboard.main.instance
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: self.defaultReuseIdentifier) as? NoteDetailsViewController else { return nil }
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: self.defaultReuseIdentifier) as? NoteDetailsViewController else {
+            return nil
+
+        }
         viewController.navigationItem.largeTitleDisplayMode = .never
 
         viewController.note = note
@@ -102,7 +104,7 @@ extension NoteDetailsViewController: UITextViewDelegate {
 private extension NoteDetailsViewController {
 
     func configureView() {
-        self.navigationItem.largeTitleDisplayMode = .never
+        self.noteTextView.backgroundColor = UIColor.background
         let selfType = type(of: self)
         if self.note == nil {
             self.localisedTitle = selfType.newNoteLocalizationKey
