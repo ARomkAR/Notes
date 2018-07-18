@@ -10,9 +10,7 @@ import XCTest
 @testable import Notes
 
 enum DummyEndpoint: Endpoint {
-
     case avengersMansion
-
     static var base: String {
         return "marvelUnivarse"
     }
@@ -31,8 +29,6 @@ enum DummyEndpoint: Endpoint {
     var parameterEncoding: ParameterEncoding? {
         return nil
     }
-
-
 }
 
 class EndpointTests: XCTestCase {
