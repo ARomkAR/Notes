@@ -52,7 +52,7 @@ final class NotesAPIClient {
     static func getNoteDetails<Manager: NetworkManager>(withID id: Int,
                                                         using manager: Manager.Type,
                                                         then completion: @escaping (Result<Note>) -> Void) {
-        manager.execute(request: NotesEndpoint.note(id)) { result in
+        manager.execute(request: NotesEndpoint.noteDetails(id)) { result in
             
             let resultToSend: Result<Note>
             

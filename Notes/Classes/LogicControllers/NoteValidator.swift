@@ -24,7 +24,6 @@ enum NoteValidator {
             switch self {
             case .emptyNote:
                 return type(of: self).validationErrorTitle.localised
-
             }
         }
 
@@ -32,21 +31,11 @@ enum NoteValidator {
             switch self {
             case .emptyNote:
                 return type(of: self).validationErrorMessage.localised
-
             }
         }
     }
 
-    /// Validation result
-    ///
-    /// - success: Success
-    /// - failed: Failed with error
-    enum Result {
-        case success(String)
-        case failed(NoteValidator.Error)
-    }
-
-    static func validateNoteText(_ text: String?) -> Result {
+    static func validateNoteText(_ text: String?) -> Result<String> {
         guard
             let text = text,
             !text.isEmpty,

@@ -85,7 +85,7 @@ enum ParameterEncoding {
 /**
  This type wraps header key value pair and provides easy and typesafe interface to interact. 
 */
-enum HTTPHeader {
+enum HTTPHeader: Equatable {
     case contentDisposition(String)
     case accept([ContentType])
     case contentType(ContentType)

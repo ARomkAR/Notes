@@ -11,4 +11,3 @@ import UIKit
 extension UIImage {
     static let settings = UIImage(named: "settings")
 }
-
