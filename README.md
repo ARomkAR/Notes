@@ -6,7 +6,6 @@
 
 Now forgot that embarrassing moment and frustration of forgetting something important. This is simple app for management of personal notes. 
 
-![](IMG_5865.png)
 
 ## Features
 
