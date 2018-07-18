@@ -116,17 +116,18 @@ private extension NotesViewController {
 
     private func showLanguageChangePrompt() {
         let selfType = type(of: self)
-        typealias AlertActionHandle = (UIAlertAction) -> Void
+
         let actionSheet = UIAlertController(title: nil,
                                             message: selfType.changeLanguageTitle.localised,
                                             preferredStyle: .actionSheet)
         let currentLanguage = Localize.currentLanguage()
+
         Localize.availableLanguages(true).forEach { language in
 
             let defaultName = Localize.defaultLanguageDisplayName(for: language)
             let translatedName = NSLocale(localeIdentifier: language).displayName(forKey: .identifier, value: language) ?? ""
             let displayName = "\(translatedName) (\(defaultName))"
-            let confirmHandle: AlertActionHandle?
+            let confirmHandle: ((UIAlertAction) -> Void)?
             if language != currentLanguage {
                 confirmHandle = { _ in
                     self.showConfirmLanguagePrompt(for: language, with: displayName)
