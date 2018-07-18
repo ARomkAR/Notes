@@ -1,4 +1,4 @@
-# Product Name
+# Notes
 > This is simple app for management of personal notes. 
 
 [![Swift Version][swift-image]][swift-url]
