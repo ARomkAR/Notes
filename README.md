@@ -1,10 +1,10 @@
 # Product Name
-> Short blurb about what your product does.
+> This is simple app for management of personal notes. 
 
 [![Swift Version][swift-image]][swift-url]
 [![License][license-image]][license-url]
 
-Now forgot that embarrassing moment and frustration of forgetting something important. This is simple app for management of personal notes. 
+Now forgot that embarrassing moment and frustration of forgetting something important. 
 
 
 ## Features
