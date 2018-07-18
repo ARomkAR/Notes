@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  Notes
+
+  Created by Omkar khedekar on 14/07/18.
+  Copyright © 2018 Omkar khedekar. All rights reserved.
+*/
+
+"HOME_NAVIGATION_TITLE" = "Poznámky";
+"NEW_NOTE" = "Nová poznámka";
+"NOTE" = "Poznámka";
+"NOTE_EDIT" = "Upravit";
+"NOTE_UPDATE" = "Aktualizace";
+"CANCEL" = "Zrušení";
+"NOTE_DONE" = "Hotovo";
+"NOTE_SAVE" = "Uložit";
+"OK" = "OK";
+"CLOSE" = "Zavřít";
+"NEW" = "Nový";
+"DELETE" = "Vymazat";
+
+///Change Language
+"CHANGE_LANGUAGE_TITLE" = "Vyber jazyk";
+"CHANGE_LANGUAGE_CONFERMATION_MESSAGE" = "Chtěli byste změnit jazyk na\n\"####\"?";
+"CHANGE_LANGUAGE_CONFERMATION" = "Změnit \"####\"";
+
+"PULL_DOWN_REFRESH_TITLE" = "Táhněte za obnovení";
+
+//Activity
+"FETCH_NOTES_ACTIVITY_MESSAGE" = "Držte se při aktualizaci poznámek";
+"SAVE_NOTE_ACTIVITY_MESSAGE" = "Držte se, zatímco uložíme poznámku";
+"DELETE_NOTE_ACTIVITY_MESSAGE" = "Držte, odstraníme poznámku";
+
+//Error
+"DEFAULT_ERROR_TITLE" = "Jejda!";
+"DEFAULT_ERROR_MESSAGE" = "Něco se děje hrozně špatně. Prosím zkuste to znovu později";
+"REQUEST_ERROR_MESSAGE" = "Při vašem požadavku došlo k nějakému problému. Ale nebojte se zkusit znovu uložit";
+"NETWORK_CONNECTIVITY_ERROR_TITLE" = "Žádné připojení k síti";
+"NETWORK_ERROR_MESSAGE" = "Zkontrolujte síťové připojení a zkuste to znovu později";
+"NOTE_VALIDATION_ERROR" = "Jejda!";
+"NOTE_VALIDATION_ERROR_MESSAGE" = "Tato poznámka se zdá být prázdná, dovolí jí přidat něco";

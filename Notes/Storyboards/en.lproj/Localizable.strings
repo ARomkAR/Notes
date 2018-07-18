@@ -1,0 +1,42 @@
+/* 
+  Localizable.strings
+  Notes
+
+  Created by Omkar khedekar on 14/07/18.
+  Copyright © 2018 Omkar khedekar. All rights reserved.
+*/
+
+"HOME_NAVIGATION_TITLE" = "Notes";
+"NEW_NOTE" = "New Note";
+"NOTE" = "Note";
+"NOTE_EDIT" = "Edit";
+"NOTE_UPDATE" = "Update";
+"CANCEL" = "Cancel";
+"NOTE_DONE" = "Done";
+"NOTE_SAVE" = "Save";
+"OK" = "OK";
+"CLOSE" = "Close";
+"NEW" = "New";
+"DELETE" = "Delete";
+
+///Change Language
+"CHANGE_LANGUAGE_TITLE" = "Choose Language";
+"CHANGE_LANGUAGE_CONFERMATION_MESSAGE" = "Would you like to change the language to\n\"####\"?";
+"CHANGE_LANGUAGE_CONFERMATION" = "Change to \"####\"";
+
+"PULL_DOWN_REFRESH_TITLE" = "Pull to refresh";
+
+//Activity
+"FETCH_NOTES_ACTIVITY_MESSAGE" = "Hold on while we refresh your notes.";
+"SAVE_NOTE_ACTIVITY_MESSAGE" = "Hold on while we save your note.";
+"DELETE_NOTE_ACTIVITY_MESSAGE" = "Hold we are deleating your note.";
+
+//Error
+"DEFAULT_ERROR_TITLE" = "Oops!";
+"DEFAULT_ERROR_MESSAGE" = "Something went terribly wrong. Please try again later.";
+"REQUEST_ERROR_MESSAGE" = "There was some problem with your request. But don't worry try saving again.";
+"NETWORK_CONNECTIVITY_ERROR_TITLE" = "No network connection";
+"NETWORK_ERROR_MESSAGE" = "Please check your network connectivity and try again later.";
+"NOTE_VALIDATION_ERROR" = "Oops!";
+"NOTE_VALIDATION_ERROR_MESSAGE" = "This note seems to be empty, lets add something to it";
+
