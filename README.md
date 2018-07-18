@@ -4,13 +4,14 @@
 [![Swift Version][swift-image]][swift-url]
 [![License][license-image]][license-url]
 
-Now forgot that embarrassing moment and frustration of forgetting something important. 
+Now ferget that embarrassing moment and frustration of forgetting something important. 
 
 
 ## Features
 
-- [x] Manage your personal notes
-- [x] Change default language without fiddeling with settings. (Currently supports English, Czech and Russian)
+- [x] Manage your personal notes.
+- [x] Change default language without fiddling with settings. 
+      Currently supports English, Czech and Russian
 
 
 ## Requirements
@@ -32,6 +33,23 @@ or simply double tap on `Notes.xcworkspace`
 
 ## Running tests 
 Same as running except `cmd+u`
+
+## Code Folder Structure
+ - Notes
+     + Classes
+         * AppDelegate
+         * Extensions
+         * LogicControllers
+         * Models
+         * Networking
+         * Protocols
+         * Utilities
+         * ViewControllers
+         * Views
+    + Resources
+    + Storyboards
+ - NotesTests
+ - Pods 
 
 ## Credits
 - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
