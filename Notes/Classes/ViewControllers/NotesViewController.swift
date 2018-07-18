@@ -127,7 +127,10 @@ private extension NotesViewController {
                                             preferredStyle: .actionSheet)
 
         Localize.availableLanguages(true).forEach { language in
-            let displayName = Localize.displayNameForLanguage(language)
+
+            let defaultName = Localize.defaultLanguageDisplayName(for: language)
+            let translatedName = NSLocale(localeIdentifier: language).displayName(forKey: .identifier, value: language) ?? ""
+            let displayName = "\(translatedName) (\(defaultName))"
 
             let handler: (UIAlertAction) -> Void = { _ in
                 Localize.setCurrentLanguage(language)

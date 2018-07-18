@@ -18,7 +18,7 @@
 "CLOSE" = "Закрыть";
 "NEW" = "Nový";
 "DELETE" = "Удалить";
-"CHANGE_LANGUAGE_TITLE" = "Изменить язык";
+"CHANGE_LANGUAGE_TITLE" = "Vyberite yazyk";
 "PULL_DOWN_REFRESH_TITLE" = "Потяните, чтобы обновить";
 
 //Activity
