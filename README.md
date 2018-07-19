@@ -18,7 +18,7 @@ Now ferget that embarrassing moment and frustration of forgetting something impo
 
 - iOS 11.0+
 - Swift 4+
-- Xcode 9.4
+- Xcode 9.4+
 
 ## Setup and Installation
 Clone from git  
